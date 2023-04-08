@@ -64,15 +64,15 @@ paper are as follow:
     new risk factors, and develop more effective treatments.<br>
 
 To achieve the objective of our project, we are expecting to do the
-following: - **1.Visualize data:** By using visualization techniques
+following:<br> **1. Visualize data:** By using visualization techniques
 such as scatter plot, hit maps, clusters etc we can identify the
 relationship between different biological, behavioral & demographic and
-diabetes. <br> - **2.Predictive model:** Using different predictive
+diabetes. <br> **2. Predictive model:** Using different predictive
 models such as linear regression, KNN regression, random forest,
 logistic regression, decision tree models, we shall come up with
-predicting diabetes.<br> - **3.Identifying importance of different
+predicting diabetes.<br> **3. Identifying importance of different
 factors:** We can use PCA, partial dependence plot etc to identify the
-marginal effects of different variables on diabetes.<br> - **4.Develop a
+marginal effects of different variables on diabetes.<br> **4. Develop a
 risk score:** based on the individual characteristics we will develop a
 risk score & based on the risk score we can give early signal whether an
 individual is within the risk zone of developing diabetes.<br>
@@ -111,9 +111,9 @@ where 0 indicates bests mental health & 30 indicates worst.
 individual’s physical health not good? A value from 0 to 30 where higher
 the value worse the physical health.
 
-<u>Demographic Variables:</u>
+**Demographic Variables:**
 
-\*\*Sex:\* patient’s gender (1: male; 0: female).
+*Sex:* patient’s gender (1: male; 0: female).
 
 *Age:* 13-level age category ,where 1 = 18-24 9 = 60-64 13 = 80 or older
 etc.
