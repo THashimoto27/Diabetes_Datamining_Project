@@ -139,13 +139,4 @@ $75,000, 8= 75,000 or more
 
 # 5. Reference
 
-1.  Dataset source:
-    <https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset>
-
-2.  Similar predictive model on breast cancer:
-    <https://www.kaggle.com/code/buddhiniw/breast-cancer-prediction>
-
-3.  Presentation on diabetes
-    modelling:[https://www.youtube.com/watch?v=qD\_xhDujMkI](https://www.kaggle.com/code/buddhiniw/breast-cancer-prediction)
-
 # 6. Appendix
