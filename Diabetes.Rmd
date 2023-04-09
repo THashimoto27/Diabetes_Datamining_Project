@@ -89,9 +89,50 @@ General Health: A measure of general health situation, 1=Excellent, 2=Very Good,
 
 *Income:* Indicates level of annual income for the households where 1= income less than \$10000, 2= \$10,000 to less than \$15,000, 3= \$15,000 to less than \$20,000, 4= \$20,000 to less than \$25,000, 5= \$25,000 to less than \$35,000, 6= \$35,000 to less than \$50,000, 7= \$50,000 to less than \$75,000, 8= 75,000 or more
 
+In the following, we shows histograms conunting of some characteristics by diabees status from the raw data.
+
+```{r, echo=FALSE,out.width ="30%", out.height = "50%",fig.align='center',fig.show="hold"}
+diabetes <- read.csv("./data/diabetes.csv")
+#ge_labels <- c("18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80+")
+
+ggplot(diabetes, aes(x = Age)) +
+  geom_histogram(bins = 13, color = "white", fill = "salmon") +
+  facet_wrap(~ Diabetes_binary, labeller = labeller(Diabetes_binary = c("0" = "Non Diabetes", "1" = "Diabetes"))) +
+  labs(title = "Histogram of Age by Diabetes Status", y = "Count")
+ggsave("./fig/hist_age.png")
+
+ggplot(diabetes, aes(x = Education)) +
+  geom_histogram(bins = 13, color = "white", fill = "dodgerblue") +
+  facet_wrap(~ Diabetes_binary, labeller = labeller(Diabetes_binary = c("0" = "Non Diabetes", "1" = "Diabetes"))) +
+  labs(title = "Histogram of Education by Diabetes Status", y = "Count")
+ggsave("./fig/hist_education.png")
+
+ggplot(diabetes, aes(x = Income)) +
+  geom_histogram(bins = 13, color = "white", fill = "aquamarine2") +
+  facet_wrap(~ Diabetes_binary, labeller = labeller(Diabetes_binary = c("0" = "Non Diabetes", "1" = "Diabetes"))) +
+  labs(title = "Histogram of Income by Diabetes Status", y = "Count")
+ggsave("./fig/hist_income.png")
+
+ggplot(diabetes, aes(x = BMI)) +
+  geom_histogram(bins = 13, color = "white", fill = "gold") +
+  facet_wrap(~ Diabetes_binary, labeller = labeller(Diabetes_binary = c("0" = "Non Diabetes", "1" = "Diabetes"))) +
+  labs(title = "Histogram of BMI by Diabetes Status", y = "Count")
+ggsave("./fig/hist_income.png")
+```
+
+```{r, echo=FALSE,out.width ="50%", out.height = "70%",fig.align='center'}
+knitr::include_graphics("./fig/hist_age.png")
+knitr::include_graphics("./fig/hist_education.png")
+knitr::include_graphics("./fig/hist_income.png")
+knitr::include_graphics("./fig/hist_bmi.png")
+```
+
 ## 2-2. Model
 
 # 3. Result
+
+## 3-1. Best Predictive model
+
 
 # 4. Conclusion
 
