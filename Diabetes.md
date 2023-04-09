@@ -131,9 +131,16 @@ less than $20,000, 4= $20,000 to less than $25,000, 5= $25,000 to less
 than $35,000, 6= $35,000 to less than $50,000, 7= $50,000 to less than
 $75,000, 8= 75,000 or more
 
+In the following, we shows histograms conunting of some characteristics
+by diabees status from the raw data.
+
+<img src="./fig/hist_age.png" width="50%" height="70%" style="display: block; margin: auto;" /><img src="./fig/hist_education.png" width="50%" height="70%" style="display: block; margin: auto;" /><img src="./fig/hist_income.png" width="50%" height="70%" style="display: block; margin: auto;" /><img src="./fig/hist_bmi.png" width="50%" height="70%" style="display: block; margin: auto;" />
+
 ## 2-2. Model
 
 # 3. Result
+
+## 3-1. Best Predictive model
 
 # 4. Conclusion
 

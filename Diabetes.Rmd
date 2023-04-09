@@ -91,7 +91,7 @@ General Health: A measure of general health situation, 1=Excellent, 2=Very Good,
 
 In the following, we shows histograms conunting of some characteristics by diabees status from the raw data.
 
-```{r, echo=FALSE,out.width ="30%", out.height = "50%",fig.align='center',fig.show="hold"}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide',eval=FALSE}
 diabetes <- read.csv("./data/diabetes.csv")
 #ge_labels <- c("18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80+")
 
@@ -117,7 +117,7 @@ ggplot(diabetes, aes(x = BMI)) +
   geom_histogram(bins = 13, color = "white", fill = "gold") +
   facet_wrap(~ Diabetes_binary, labeller = labeller(Diabetes_binary = c("0" = "Non Diabetes", "1" = "Diabetes"))) +
   labs(title = "Histogram of BMI by Diabetes Status", y = "Count")
-ggsave("./fig/hist_income.png")
+ggsave("./fig/hist_bmi.png")
 ```
 
 ```{r, echo=FALSE,out.width ="50%", out.height = "70%",fig.align='center'}
