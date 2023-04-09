@@ -13,11 +13,28 @@ options(dplyr.summarise.inform = FALSE)
 ```
 
 ```{r setup, include=FALSE,eval=FALSE}
+library(magrittr)
 library(dplyr)
 library(tidyverse) 
+library(sjmisc)
 library(ggplot2)
+library(reshape2)
+library(gapminder)
+library(mosaic)
+library(extraDistr)
+library(caret)
+library(modelr)
+library(parallel)
 library(foreach)
 library(rsample)
+library(lubridate)
+library(olsrr)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+library(gbm)
+library(gamlr)
+library(arules)
 library(knitr)
 ```
 
@@ -131,11 +148,187 @@ knitr::include_graphics("./fig/hist_bmi.png")
 
 # 3. Result
 
-## 3-1. Best Predictive model
+## 3-1. Best Diabete Prediction
 
+
+### 3-1-2. Linear model regression
+
+First, to find the best combination of variables for the model, we used stepwise selection. And we got the best model from the point of AIC view, which is so complex, and so we shows it in the [Appendix](## 6-1. Stewise selection model).
+
+```{r , eval=FALSE,echo=FALSE,fig.width =5.5, fig.height = 2,fig.align='center'}
+## Linear regression and Knn regression
+# standarized
+data <- diabetes[,2:22]
+scale_train = apply(data, 2, sd) # calculate std dev for each column
+data_tilde = scale(data , scale = scale_train) %>% as.data.frame
+data_cv <- as.data.frame(c(diabetes[1],data_tilde))
+
+# Split
+diabetes_split = initial_split(data_cv, prop = 0.8)
+diabetes_train = training(diabetes_split)
+diabetes_test = testing(diabetes_split)
+
+## Varialbe Selection
+#Find some good model through stepwise(which variable should be included?)
+#It took about 2hours to execute this code!
+lm_medium = lm(Diabetes_binary ~ ., data=diabetes_train)
+lm_step = step(lm_medium, scope=~(.)^2, data=diabetes_test)
+
+# From this result, I got the following model is the best
+# Step:  AIC=-100451.2
+# Diabetes_binary ~ HighBP + HighChol + CholCheck + BMI + Smoker + 
+#     Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
+#     HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
+#     MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
+#     Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
+#     GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
+#     DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
+#     CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
+#     HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
+#     HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk + 
+#     HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
+#     HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
+#     BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
+#     HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
+#     HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
+#     CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
+#     HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
+#     HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
+#     CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
+#     MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
+#     BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
+#     PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
+#     PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
+#     AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
+#     Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
+#     AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income
+```
+
+Also, we compared three model with the cross-Validation, the linear model of this stepwised model and the basic model (which simply includes all variables), and Knn regression model. These rmse of three model is as follow:
+
+```{r , eval=FALSE,echo=FALSE,fig.width =5.5, fig.height = 2,fig.align='center'}
+## Linear regression and K-CV for the best selected model
+# K-CV
+K_folds = 5
+diabetes_folds = crossv_kfold(data_cv, k=K_folds)
+
+# Linear regression of some model found by step wise
+model_step_cv = map(diabetes_folds$train, ~ lm(Diabetes_binary ~ HighBP + HighChol + CholCheck + BMI + Smoker + 
+    Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
+    HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
+    MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
+    Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
+    GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
+    DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
+    CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
+    HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
+    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk + 
+    HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
+    HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
+    BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
+    HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
+    HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
+    CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
+    HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
+    HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
+    CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
+    MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
+    BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
+    PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
+    PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
+    AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
+    Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
+    AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income,data=.))
+
+rmse_step_cv = mean(map2_dbl(model_step_cv, diabetes_folds$test, modelr::rmse))
+
+# Linear regression of some model found by step wise
+model_lm1_cv = map(diabetes_folds$train, ~ lm(Diabetes_binary ~ .,data=.))
+rmse_lm1_cv = mean(map2_dbl(model_lm1_cv , diabetes_folds$test, modelr::rmse))
+
+
+
+# Knn regression of some model found by step wise
+model_knncv = foreach(k = 1:2, .combine='rbind') %do% {
+  model_cv = map(diabetes_folds$train, ~ knnreg(Diabetes_binary ~  HighBP + HighChol + CholCheck + BMI + Smoker + 
+    Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
+    HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
+    MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
+    Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
+    GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
+    DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
+    CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
+    HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
+    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk + 
+    HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
+    HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
+    BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
+    HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
+    HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
+    CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
+    HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
+    HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
+    CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
+    MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
+    BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
+    PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
+    PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
+    AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
+    Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
+    AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income, k=k, data = ., use.all=FALSE))
+  errs_cv = map2_dbl(model_cv, diabetes_folds$test, modelr::rmse)
+  c(k=k, err = mean(errs_cv), std_err = sd(errs_cv)/sqrt(K_folds))
+} %>% as.data.frame
+
+# Comparison of RMSE
+knn_min_rmse=model_knncv[model_knncv$err==min(model_knncv$err),]
+result_cv =c(rmse_lm1_cv,knn_min_rmse[2])
+```
+
+```{r, echo=FALSE,out.width ="50%", out.height = "70%",fig.align='center'}
+knitr::kable(cbind( RMSE_stndard=0.415,RMSE_step=0.411, RMSE_KNN=0.500))
+```
+
+where the optimal k is $2$. From the above the result, it is safe to say the stepwise model is the best predictive model so far.
+
+### 2-3-2. Logit model comparison
 
 # 4. Conclusion
 
 # 5. Reference
 
 # 6. Appendix
+
+## 6-1. Stewise selection model
+
+The model tha we got from the setpwise selection in 3-1 is as follow:
+
+$$
+\begin{aligned}
+ Diabetes_binary &= \beta_0 + \beta [ HighBP + HighChol + CholCheck +\\BMI + Smoker + 
+     &Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies \\+ 
+     &HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + \\
+     &MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + \\
+     &Income + GenHlth\cdot DiffWalk \\& + BMI\cdot Age + Sex\cdot Age + HighChol\cdot Age +\\ 
+   &GenHlth\cdot Income + BMI\cdot DiffWalk \\& + HighBP\cdot HeartDiseaseorAttack + \\
+     &DiffWalk\cdot Age + GenHlth\cdot PhysHlth \\& + HvyAlcoholConsump\cdot Age + \\
+     &CholCheck\cdot GenHlth + GenHlth\cdot Sex \\& + HighChol\cdot HeartDiseaseorAttack +\\ 
+     &HighChol\cdot GenHlth + HeartDiseaseorAttack\cdot Age + Smoker\cdot GenHlth + \\
+     &HeartDiseaseorAttack\cdot GenHlth \\& + Fruits\cdot Education + HeartDiseaseorAttack\cdot DiffWalk +\\&HighBP\cdot HvyAlcoholConsump \\& + HighChol\cdot Stroke + AnyHealthcare\cdot Education +\\ 
+    & HighBP\cdot CholCheck + Smoker\cdot Education + BMI\cdot HeartDiseaseorAttack + \\
+     &BMI\cdot Smoker + MentHlth\cdot DiffWalk \\& + CholCheck\cdot BMI + HighChol\cdot BMI + \\
+     &HighBP\cdot HighChol + Fruits\cdot Age \\& + PhysActivity\cdot Fruits + Stroke\cdot GenHlth + \\ 
+     &HighBP\cdot Sex + Stroke\cdot Age \\& + HeartDiseaseorAttack\cdot NoDocbcCost + \\
+     &CholCheck\cdot Age + CholCheck\cdot HeartDiseaseorAttack \\& + Fruits\cdot Sex + \\
+     &HvyAlcoholConsump\cdot GenHlth \\& + HighChol\cdot MentHlth \\& + HighBP\cdot AnyHealthcare + \\ 
+     &HighBP\cdot Education + Smoker\cdot Stroke \\& + PhysActivity\cdot Age + PhysActivity\cdot Education + 
+     &CholCheck\cdot AnyHealthcare + Veggies\cdot NoDocbcCost + BMI\cdot Sex + \\
+     &MentHlth\cdot Income + PhysHlth\cdot Income + NoDocbcCost\cdot DiffWalk + \\
+     &BMI\cdot MentHlth + HighChol\cdot Sex \\& + Sex\cdot Education + Smoker\cdot Sex + \\
+     &PhysHlth\cdot Age + MentHlth\cdot Age \\& + HeartDiseaseorAttack\cdot PhysHlth + \\ 
+     &PhysActivity\cdot PhysHlth + Stroke\cdot MentHlth + BMI\cdot NoDocbcCost + \\
+     &AnyHealthcare\cdot Age + BMI\cdot PhysActivity + Smoker\cdot DiffWalk + \\
+     &Smoker\cdot Age + Smoker\cdot HvyAlcoholConsump \\& + AnyHealthcare\cdot DiffWalk +\\ 
+     &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\ &PhysActivity\cdot Income]+\varepsilon
+\end{aligned}
+$$

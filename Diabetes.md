@@ -140,10 +140,78 @@ by diabees status from the raw data.
 
 # 3. Result
 
-## 3-1. Best Predictive model
+## 3-1. Best Diabete Prediction
+
+### 3-1-2. Linear model regression
+
+First, to find the best combination of variables for the model, we used
+stepwise selection. And we got the best model from the point of AIC
+view, which is so complex, and so we shows it in the
+[Appendix](##%206-1.%20Stewise%20selection%20model).
+
+Also, we compared three model with the cross-Validation, the linear
+model of this stepwised model and the basic model (which simply includes
+all variables), and Knn regression model. These rmse of three model is
+as follow:
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">RMSE_stndard</th>
+<th style="text-align: right;">RMSE_step</th>
+<th style="text-align: right;">RMSE_KNN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.415</td>
+<td style="text-align: right;">0.411</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+</tbody>
+</table>
+
+where the optimal k is 2. From the above the result, it is safe to say
+the stepwise model is the best predictive model so far.
+
+### 2-3-2. Logit model comparison
 
 # 4. Conclusion
 
 # 5. Reference
 
 # 6. Appendix
+
+## 6-1. Stewise selection model
+
+The model tha we got from the setpwise selection in 3-1 is as follow:
+
+$$
+\begin{aligned}
+ Diabetes\_binary &= \beta\_0 + \beta \[ HighBP + HighChol + CholCheck +\\\BMI + Smoker + 
+     &Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies \\\\+ 
+     &HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + \\\\
+     &MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + \\\\
+     &Income + GenHlth\cdot DiffWalk \\\\& + BMI\cdot Age + Sex\cdot Age + HighChol\cdot Age +\\\\ 
+   &GenHlth\cdot Income + BMI\cdot DiffWalk \\\\& + HighBP\cdot HeartDiseaseorAttack + \\\\
+     &DiffWalk\cdot Age + GenHlth\cdot PhysHlth \\\\& + HvyAlcoholConsump\cdot Age + \\\\
+     &CholCheck\cdot GenHlth + GenHlth\cdot Sex \\\\& + HighChol\cdot HeartDiseaseorAttack +\\\\ 
+     &HighChol\cdot GenHlth + HeartDiseaseorAttack\cdot Age + Smoker\cdot GenHlth + \\\\
+     &HeartDiseaseorAttack\cdot GenHlth \\\\& + Fruits\cdot Education + HeartDiseaseorAttack\cdot DiffWalk +\\\\&HighBP\cdot HvyAlcoholConsump \\\\& + HighChol\cdot Stroke + AnyHealthcare\cdot Education +\\\\ 
+    & HighBP\cdot CholCheck + Smoker\cdot Education + BMI\cdot HeartDiseaseorAttack + \\\\
+     &BMI\cdot Smoker + MentHlth\cdot DiffWalk \\\\& + CholCheck\cdot BMI + HighChol\cdot BMI + \\\\
+     &HighBP\cdot HighChol + Fruits\cdot Age \\\\& + PhysActivity\cdot Fruits + Stroke\cdot GenHlth + \\\\ 
+     &HighBP\cdot Sex + Stroke\cdot Age \\\\& + HeartDiseaseorAttack\cdot NoDocbcCost + \\\\
+     &CholCheck\cdot Age + CholCheck\cdot HeartDiseaseorAttack \\\\& + Fruits\cdot Sex + \\\\
+     &HvyAlcoholConsump\cdot GenHlth \\\\& + HighChol\cdot MentHlth \\\\& + HighBP\cdot AnyHealthcare + \\\\ 
+     &HighBP\cdot Education + Smoker\cdot Stroke \\\\& + PhysActivity\cdot Age + PhysActivity\cdot Education + 
+     &CholCheck\cdot AnyHealthcare + Veggies\cdot NoDocbcCost + BMI\cdot Sex + \\\\
+     &MentHlth\cdot Income + PhysHlth\cdot Income + NoDocbcCost\cdot DiffWalk + \\\\
+     &BMI\cdot MentHlth + HighChol\cdot Sex \\\\& + Sex\cdot Education + Smoker\cdot Sex + \\\\
+     &PhysHlth\cdot Age + MentHlth\cdot Age \\\\& + HeartDiseaseorAttack\cdot PhysHlth + \\\\ 
+     &PhysActivity\cdot PhysHlth + Stroke\cdot MentHlth + BMI\cdot NoDocbcCost + \\\\
+     &AnyHealthcare\cdot Age + BMI\cdot PhysActivity + Smoker\cdot DiffWalk + \\\\
+     &Smoker\cdot Age + Smoker\cdot HvyAlcoholConsump \\\\& + AnyHealthcare\cdot DiffWalk +\\\\ 
+     &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\\\ &PhysActivity\cdot Income\]+\varepsilon
+\end{aligned}
+$$
