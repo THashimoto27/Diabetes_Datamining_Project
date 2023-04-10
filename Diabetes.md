@@ -176,6 +176,56 @@ the stepwise model is the best predictive model so far.
 
 ### 2-3-2. Logit model comparison
 
+Next to find better predictive model,
+
+<table>
+<caption>the output of LPM and Logit</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Linear</th>
+<th style="text-align: right;">Logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">accuracy</td>
+<td style="text-align: right;">0.753</td>
+<td style="text-align: right;">0.748</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TPR</td>
+<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">0.768</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FPR</td>
+<td style="text-align: right;">0.282</td>
+<td style="text-align: right;">0.272</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FDR</td>
+<td style="text-align: right;">0.263</td>
+<td style="text-align: right;">0.253</td>
+</tr>
+</tbody>
+</table>
+
+the output of LPM and Logit
+
+From these tables, the accuracy rate of the linear model is
+0.753(=75.3%) and that of the logit model is 0.748(=74.8%). Also, each
+true positive rate (TPR) is 0.79 and 0.768, each false positive rate
+(FPR) is 0.282 (=Specificity: 70.8%) and 0.272 (=Specificity: 72.8%),
+and each false discovery rate (FDR) is 0.263 (=Precision: 73.7%) and
+0.253 (=Precision: 74.7%).
+
+Therefore, from the result, the linear model can be better than the
+logit model because the linear model has the lowest rmse and the ability
+of the prediction for diabetes. However, we need to careful about what
+sometimes the logit model will be better. (if you have an interest ROC
+curve, see [Appendix](##%206-2.%20ROC%20curve%20linear%20vs%20logit))
+
 # 4. Conclusion
 
 # 5. Reference
@@ -215,3 +265,10 @@ $$
      &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\\\ &PhysActivity\cdot Income\]+\varepsilon
 \end{aligned}
 $$
+
+## 6-2. ROC curve linear vs logit
+
+<img src="./fig/roc.png" width="50%" height="70%" style="display: block; margin: auto;" />
+The red line of this graph represents the best linear model and the blue
+line represents the logit model. These gaps are so little but the linear
+model is slightly better than that the logit model.

@@ -222,7 +222,7 @@ model_step_cv = map(diabetes_folds$train, ~ lm(Diabetes_binary ~ HighBP + HighCh
     DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
     CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
     HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
-    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk + 
+    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk +
     HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
     HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
     BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
@@ -259,7 +259,7 @@ model_knncv = foreach(k = 1:2, .combine='rbind') %do% {
     DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
     CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
     HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
-    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk + 
+    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk +
     HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
     HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
     BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
@@ -292,6 +292,83 @@ knitr::kable(cbind( RMSE_stndard=0.415,RMSE_step=0.411, RMSE_KNN=0.500))
 where the optimal k is $2$. From the above the result, it is safe to say the stepwise model is the best predictive model so far.
 
 ### 2-3-2. Logit model comparison
+
+Next to find better predictive model, 
+
+```{r ,  eval=FALSE,include=FALSE}
+
+## Linear Probability Model
+lm_db <- lm(Diabetes_binary~ HighBP + HighChol + CholCheck + BMI + Smoker + 
+    Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
+    HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
+    MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
+    Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
+    GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
+    DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
+    CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
+    HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
+    HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk +
+    HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
+    HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
+    BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
+    HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
+    HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
+    CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
+    HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
+    HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
+    CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
+    MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
+    BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
+    PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
+    PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
+    AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
+    Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
+    AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income, data = data_cv)
+phat_test_lm = predict(lm_db, data_cv, type='response')
+yhat_test_lm = ifelse(phat_test_lm > 0.5, 1, 0)
+confusion_out_lm = table(y = data_cv$Diabetes_binary ,yhat = yhat_test_lm )
+
+## Other linear model -> accuracy rate does not change
+# lm_db2 <- lm(Diabetes_binary~ ., data = data_cv)
+# phat_test_lm2 = predict(lm_db2, data_cv, type='response')
+# yhat_test_lm2 = ifelse(phat_test_lm2 > 0.5, 1, 0)
+# confusion_out_lm2 = table(y = data_cv$Diabetes_binary ,yhat = yhat_test_lm )
+#accuracy_lm2 = 1- (confusion_out_lm2[2,1]+confusion_out_lm2[1,2])/sum(confusion_out_lm2)
+
+## Logit Model
+logit_db <- glm(Diabetes_binary~ ., data = data_cv, family=binomial)
+phat_test_logit = predict(logit_db, data_cv, type='response')
+yhat_test_logit = ifelse(phat_test_logit> 0.5, 1, 0)
+confusion_out_logit = table(y = data_cv$Diabetes_binary, yhat = yhat_test_logit)
+
+## Accuracy
+accuracy_lm = 1- (confusion_out_lm[2,1]+confusion_out_lm[1,2])/sum(confusion_out_lm)
+accuracy_logit = 1- (confusion_out_logit[2,1]+confusion_out_logit[1,2])/sum(confusion_out_logit)
+
+## TPR
+TPR_lm = (confusion_out_lm[2,2])/(confusion_out_lm[2,1]+confusion_out_lm[2,2])
+TPR_logit =  (confusion_out_logit[2,2])/(confusion_out_logit[2,1]+confusion_out_logit[2,2])
+
+## FPR
+FPR_lm = (confusion_out_lm[1,2])/(confusion_out_lm[1,1]+confusion_out_lm[1,2])
+FPR_logit = (confusion_out_logit[1,2])/(confusion_out_logit[1,1]+confusion_out_logit[1,2])
+
+## FDR
+FDR_lm =  (confusion_out_lm[1,2])/(confusion_out_lm[1,2]+confusion_out_lm[2,2])
+FDR_logit =  (confusion_out_logit[1,2])/(confusion_out_lm[1,2]+confusion_out_lm[2,2])
+```
+
+```{r, echo=FALSE,out.width ="50%", out.height = "70%",fig.align='center'}
+table <- matrix(c(0.753, 0.748, 0.790, 0.768,0.282,0.272,0.263,0.253), nrow = 4, ncol = 2, byrow = TRUE)
+rownames(table) <- c("accuracy", "TPR","FPR","FDR")
+colnames(table) <- c("Linear", "Logit")
+knitr::kable(table,caption = "the output of LPM and Logit")
+```
+
+From these tables, the accuracy rate of the linear model is 0.753(=75.3%) and that of the logit model is 0.748(=74.8%). Also, each true positive rate (TPR) is 0.79 and 0.768, each false positive rate (FPR) is 0.282 (=Specificity: 70.8%) and 0.272 (=Specificity: 72.8%), and each false discovery rate (FDR) is 0.263 (=Precision: 73.7%) and 0.253 (=Precision: 74.7%).
+
+Therefore, from the result, the linear model can be better than the logit model because the linear model has the lowest rmse and the ability of the prediction for diabetes. However, we need to careful about what sometimes the logit model will be better. (if you have an interest ROC curve, see [Appendix](## 6-2. ROC curve linear vs logit))
+
 
 # 4. Conclusion
 
@@ -332,3 +409,71 @@ $$
      &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\ &PhysActivity\cdot Income]+\varepsilon
 \end{aligned}
 $$
+
+## 6-2. ROC curve linear vs logit
+
+```{r ,  eval=FALSE,include=FALSE}
+
+roc = data.frame()
+
+for (i in seq(0, 1, by = 0.01)){
+  ## Linear Probability Model
+  lm_db <- lm(Diabetes_binary~ HighBP + HighChol + CholCheck + BMI + Smoker + 
+      Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
+      HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
+      MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
+      Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
+      GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
+      DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
+      CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
+      HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
+      HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk +
+      HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
+      HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
+      BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
+      HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
+      HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
+      CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
+      HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
+      HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
+      CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
+      MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
+      BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
+      PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
+      PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
+      AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
+      Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
+      AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income, data = data_cv)
+  phat_test_lm = predict(lm_db, data_cv, type='response')
+  yhat_test_lm = ifelse(phat_test_lm > i, 1, 0)
+  confusion_out_lm = table(y = data_cv$Diabetes_binary ,yhat = yhat_test_lm )
+  
+  ## Logit Model
+  logit_db <- glm(Diabetes_binary~ ., data = data_cv, family=binomial)
+  phat_test_logit = predict(logit_db, data_cv, type='response')
+  yhat_test_logit = ifelse(phat_test_logit> i, 1, 0)
+  confusion_out_logit = table(y = data_cv$Diabetes_binary, yhat = yhat_test_logit)
+  
+  ## TPR
+  TPR_lm = tryCatch({
+    (confusion_out_lm[2,2])/(confusion_out_lm[2,1]+confusion_out_lm[2,2])},error=function(e) {"."})
+  TPR_logit = tryCatch({ (confusion_out_logit[2,2])/(confusion_out_logit[2,1]+confusion_out_logit[2,2])}, error=function(e) {"."})
+  
+  ## FPR
+  FPR_lm = tryCatch({(confusion_out_lm[1,2])/(confusion_out_lm[1,1]+confusion_out_lm[1,2])}, error=function(e) {"."})
+  FPR_logit = tryCatch({(confusion_out_logit[1,2])/(confusion_out_logit[1,1]+confusion_out_logit[1,2])},error=function(e) {"."})
+  roc = rbind(rbind(c(i,TPR_lm,TPR_logit,FPR_lm,FPR_logit)),roc)
+}
+colnames(roc) <- c("TPR_lm","TPR_logit","FPR_lm","FPR_logit")
+roc2 =data.frame(cbind(TPR_lm=as.numeric(roc[2:100,]$TPR_lm),FPR_lm=as.numeric(roc[2:100,]$FPR_lm), TPR_logit=as.numeric(roc[2:100,]$TPR_logit), FPR_logit=as.numeric(roc[2:100,]$FPR_logit)))
+
+ggplot(roc2)+geom_line(aes(x=FPR_lm,y=TPR_lm),colour="red")+geom_line(aes(x=FPR_logit,y=TPR_logit),color="blue")+
+  ggtitle("ROC curve:linear vs logit")
+ggsave("./fig/roc.png")
+```
+
+```{r, echo=FALSE,out.width ="50%", out.height = "70%",fig.align='center'}
+knitr::include_graphics("./fig/roc.png")
+```
+The red line of this graph represents the best linear model and the blue line represents the logit model. These gaps are so little but the linear model is slightly better than that the logit model.
+
