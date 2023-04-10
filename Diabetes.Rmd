@@ -472,7 +472,7 @@ ggplot(roc2)+geom_line(aes(x=FPR_lm,y=TPR_lm),colour="red")+geom_line(aes(x=FPR_
 ggsave("./fig/roc.png")
 ```
 
-```{r, echo=FALSE,out.width ="50%", out.height = "70%",fig.align='center'}
+```{r, echo=FALSE,out.width ="70%", out.height = "70%",fig.align='center'}
 knitr::include_graphics("./fig/roc.png")
 ```
 The red line of this graph represents the best linear model and the blue line represents the logit model. These gaps are so little but the linear model is slightly better than that the logit model.

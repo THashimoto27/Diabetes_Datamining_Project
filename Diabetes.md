@@ -268,7 +268,7 @@ $$
 
 ## 6-2. ROC curve linear vs logit
 
-<img src="./fig/roc.png" width="50%" height="70%" style="display: block; margin: auto;" />
+<img src="./fig/roc.png" width="70%" height="70%" style="display: block; margin: auto;" />
 The red line of this graph represents the best linear model and the blue
 line represents the logit model. These gaps are so little but the linear
 model is slightly better than that the logit model.
