@@ -36,6 +36,7 @@ library(gbm)
 library(gamlr)
 library(arules)
 library(knitr)
+load("./data/diabetes.RData")
 ```
 
 # 1. Introduction
