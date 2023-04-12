@@ -169,7 +169,7 @@ Note: the reason we did not use "Google scholar" to collect in Publish or Perish
 
 # 3. Result
 
-## 3-1. Best Diabete Prediction
+## 3-1. Best Diabetes Prediction
 
 
 ### 3-1-2. Linear model regression

@@ -179,7 +179,7 @@ Also, Publish or Perish can only get up to 1000 data.
 
 # 3. Result
 
-## 3-1. Best Diabete Prediction
+## 3-1. Best Diabetes Prediction
 
 ### 3-1-2. Linear model regression
 
