@@ -160,10 +160,11 @@ application of [Publish or Perish
 into the “Keywords” and get information of the 1000 medical papers with
 “diabetes” keyword from 2022 to 2023.
 
-Next, we excluded balnk data and stopwords of “stopwords” library, and
-tokenized their abstracts using “tokenizers” library.
+Next, we excluded blank data and stopwords of “stopwords” library, and
+tokenized their abstracts using “tokenizers” library. So there were 950
+papers’ data.
 
-After that, we apply apriri function for data that we got with support
+After that, we apply apriori function for data that we got with support
 =.02, confidence=.001, and extract some data from them with lift&gt;4.
 Then we showed the node graph that told us words that related to
 “diabetes” word with [Gephi](https://gephi.org/).
@@ -267,14 +268,14 @@ curve, see [Appendix](##%206-2.%20ROC%20curve%20linear%20vs%20logit))
 ## 3-3. What kind of data is more helpful?
 
 From the result, at first the support-confidence plot is as follow:
-<img src="./fig/plot_token.png" width="70%" height="50%" style="display: block; margin: auto;" />
+<img src="./fig/plot_token.png" width="50%" height="50%" style="display: block; margin: auto;" />
 This looks many data is tend to the side of the confidence. Note that
 although we tried to do low confidence level, its result does not change
 mostly.
 
 Next, the node graph is as follow, the former one is the overall graph
 and the latter one is enlarged it:
-<img src="./fig/token_node.png" width="190%" height="100%" style="display: block; margin: auto;" /><img src="./fig/token_node2.png" width="190%" height="100%" style="display: block; margin: auto;" />
+<img src="./fig/token_node.png" width="80%" height="80%" style="display: block; margin: auto;" /><img src="./fig/token_node2.png" width="80%" height="80%" style="display: block; margin: auto;" />
 
 From this graph, we can get some factors which are not included in our
 data are related to diabetes like these:

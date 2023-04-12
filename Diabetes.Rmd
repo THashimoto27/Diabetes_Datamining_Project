@@ -158,9 +158,9 @@ In this paper, we use the Natural Language Processing to identify factors that a
 
 To do that, at first, we collected data of the abstract of the recent academic paper with keyword "diabetes" from the [Pubmed](https://pubmed.ncbi.nlm.nih.gov/). Specifically, we used the application of [Publish or Perish 8](https://harzing.com/resources/publish-or-perish/), put "diabetes" into the "Keywords" and get information of the 1000 medical papers with "diabetes" keyword from 2022 to 2023.
 
-Next, we excluded balnk data and stopwords of "stopwords" library, and tokenized their abstracts using "tokenizers" library.
+Next, we excluded blank data and stopwords of "stopwords" library, and tokenized their abstracts using "tokenizers" library. So there were 950 papers' data.
 
-After that, we apply apriri function for data that we got with support =.02, confidence=.001, and extract some data from them with lift>4. Then we showed the node graph that told us words that related to "diabetes" word with [Gephi](https://gephi.org/).
+After that, we apply apriori function for data that we got with support =.02, confidence=.001, and extract some data from them with lift>4. Then we showed the node graph that told us words that related to "diabetes" word with [Gephi](https://gephi.org/).
 
 Finally, from the node graph, we got factors that related to "diabetes", and identified factors that we should collect additionally while comparing to our current factors of data.
 
@@ -421,13 +421,13 @@ igraph::write_graph(token_graph, file='./fig/token_graph.graphml', format = "gra
 ```
 
 From the result, at first the support-confidence plot is as follow: 
-```{r, echo=FALSE,out.width ="70%", out.height = "50%",fig.align='center'}
+```{r, echo=FALSE,out.width ="50%", out.height = "50%",fig.align='center'}
 knitr::include_graphics("./fig/plot_token.png")
 ```
 This looks many data is tend to the side of the confidence. Note that although we tried to do low confidence level, its result does not change mostly.
 
 Next, the node graph is as follow, the former one is the overall graph and the latter one is enlarged it:
-```{r, echo=FALSE,out.width ="190%", out.height = "100%",fig.align='center'}
+```{r, echo=FALSE,out.width ="80%", out.height = "80%",fig.align='center'}
 knitr::include_graphics("./fig/token_node.png")
 knitr::include_graphics("./fig/token_node2.png")
 ```
