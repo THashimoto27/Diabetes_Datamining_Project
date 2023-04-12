@@ -75,7 +75,13 @@ factors:** We can use PCA, partial dependence plot etc to identify the
 marginal effects of different variables on diabetes.<br> **4. Develop a
 risk score:** based on the individual characteristics we will develop a
 risk score & based on the risk score we can give early signal whether an
-individual is within the risk zone of developing diabetes.<br>
+individual is within the risk zone of developing diabetes.<br> **5. Need
+more data to estimate our model preciously:** Our data are always
+limited, and so we cannot build a perfect predictive model. Then, we use
+the “Natural Language Processing” and “Association rules” to identify
+factors that are much related to “diabetes” because if we can get
+additionally data of them, we can estimate our model more
+preciously.<br>
 
 # 2. Data and Model
 
@@ -137,6 +143,38 @@ by diabees status from the raw data.
 <img src="./fig/hist_age.png" width="50%" height="70%" style="display: block; margin: auto;" /><img src="./fig/hist_education.png" width="50%" height="70%" style="display: block; margin: auto;" /><img src="./fig/hist_income.png" width="50%" height="70%" style="display: block; margin: auto;" /><img src="./fig/hist_bmi.png" width="50%" height="70%" style="display: block; margin: auto;" />
 
 ## 2-2. Model
+
+### 2-2-1. Best Predictive Model
+
+### 2-2-2. Factors related to “diabetes”
+
+In this paper, we use the Natural Language Processing to identify
+factors that are much related to “diabetes” because if we can get
+additionally data of them, we can estimate our model more preciously.
+
+To do that, at first, we collected data of the abstract of the recent
+academic paper with keyword “diabetes” from the
+[Pubmed](https://pubmed.ncbi.nlm.nih.gov/). Specifically, we used the
+application of [Publish or Perish
+8](https://harzing.com/resources/publish-or-perish/), put “diabetes”
+into the “Keywords” and get information of the 1000 medical papers with
+“diabetes” keyword from 2022 to 2023.
+
+Next, we excluded balnk data and stopwords of “stopwords” library, and
+tokenized their abstracts using “tokenizers” library.
+
+After that, we apply apriri function for data that we got with support
+=.02, confidence=.001, and extract some data from them with lift&gt;4.
+Then we showed the node graph that told us words that related to
+“diabetes” word with [Gephi](https://gephi.org/).
+
+Finally, from the node graph, we got factors that related to “diabetes”,
+and identified factors that we should collect additionally while
+comparing to our current factors of data.
+
+Note: the reason we did not use “Google scholar” to collect in Publish
+or Perish is it did not give us all abstract data of each papers.<br>
+Also, Publish or Perish can only get up to 1000 data.
 
 # 3. Result
 
@@ -225,6 +263,32 @@ logit model because the linear model has the lowest rmse and the ability
 of the prediction for diabetes. However, we need to careful about what
 sometimes the logit model will be better. (if you have an interest ROC
 curve, see [Appendix](##%206-2.%20ROC%20curve%20linear%20vs%20logit))
+
+## 3-3. What kind of data is more helpful?
+
+From the result, at first the support-confidence plot is as follow:
+<img src="./fig/plot_token.png" width="70%" height="50%" style="display: block; margin: auto;" />
+This looks many data is tend to the side of the confidence. Note that
+although we tried to do low confidence level, its result does not change
+mostly.
+
+Next, the node graph is as follow, the former one is the overall graph
+and the latter one is enlarged it:
+<img src="./fig/token_node.png" width="190%" height="100%" style="display: block; margin: auto;" /><img src="./fig/token_node2.png" width="190%" height="100%" style="display: block; margin: auto;" />
+
+From this graph, we can get some factors which are not included in our
+data are related to diabetes like these:
+
+-   fasting <br>
+-   metabolic<br>
+-   blood glucose level<br>
+-   cholesterol level<br>
+-   stress<br>
+-   inflammatory<br>
+-   pregnancy<br>
+
+Therefore, if we want to refine our model much more, it is better to get
+data included these factors additionally.
 
 # 4. Conclusion
 
