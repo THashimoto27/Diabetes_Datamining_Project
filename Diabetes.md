@@ -268,7 +268,9 @@ curve, see [Appendix](##%206-2.%20ROC%20curve%20linear%20vs%20logit))
 ## 3-3. What kind of data is more helpful?
 
 From the result, at first the support-confidence plot is as follow:
-<img src="./fig/plot_token.png" width="50%" height="50%" style="display: block; margin: auto;" />
+
+<img src="./fig/plot_token.png" width="40%" height="40%" style="display: block; margin: auto;" />
+
 This looks many data is tend to the side of the confidence. Note that
 although we tried to do low confidence level, its result does not change
 mostly.

@@ -421,9 +421,11 @@ igraph::write_graph(token_graph, file='./fig/token_graph.graphml', format = "gra
 ```
 
 From the result, at first the support-confidence plot is as follow: 
-```{r, echo=FALSE,out.width ="50%", out.height = "50%",fig.align='center'}
+
+```{r, echo=FALSE,out.width ="40%", out.height = "40%",fig.align='center'}
 knitr::include_graphics("./fig/plot_token.png")
 ```
+
 This looks many data is tend to the side of the confidence. Note that although we tried to do low confidence level, its result does not change mostly.
 
 Next, the node graph is as follow, the former one is the overall graph and the latter one is enlarged it:
