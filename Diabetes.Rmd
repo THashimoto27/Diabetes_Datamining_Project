@@ -421,7 +421,7 @@ cor(data_score$score_linear,data_score$score_logit)
 
 From the linear probability model and the logit model, the individual risk score in the data is as follow: 
 
-```{r, echo=FALSE,out.width ="80%", out.height = "80%",fig.align='center'}
+```{r, echo=FALSE,out.width ="50%", out.height = "50%",fig.align='center'}
 knitr::include_graphics("./fig/lpm_score.png")
 knitr::include_graphics("./fig/logit_score.png")
 knitr::include_graphics("./fig/relation_score.png")

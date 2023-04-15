@@ -270,7 +270,7 @@ curve, see [Appendix](##%206-2.%20ROC%20curve%20linear%20vs%20logit))
 From the linear probability model and the logit model, the individual
 risk score in the data is as follow:
 
-<img src="./fig/lpm_score.png" width="80%" height="80%" style="display: block; margin: auto;" /><img src="./fig/logit_score.png" width="80%" height="80%" style="display: block; margin: auto;" /><img src="./fig/relation_score.png" width="80%" height="80%" style="display: block; margin: auto;" />
+<img src="./fig/lpm_score.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="./fig/logit_score.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="./fig/relation_score.png" width="50%" height="50%" style="display: block; margin: auto;" />
 
 <table>
 <thead>
