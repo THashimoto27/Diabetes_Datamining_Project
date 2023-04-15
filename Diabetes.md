@@ -345,7 +345,7 @@ data included these factors additionally.
 
 ## 6-1. Stewise selection model
 
-The model tha we got from the setpwise selection in 3-1 is as follow:
+The model that we got from the stepwise selection in 3-1 is as follow:
 
 $$
 \begin{aligned}
@@ -373,9 +373,10 @@ $$
      &PhysActivity\cdot PhysHlth + Stroke\cdot MentHlth + BMI\cdot NoDocbcCost + \\\\
      &AnyHealthcare\cdot Age + BMI\cdot PhysActivity + Smoker\cdot DiffWalk + \\\\
      &Smoker\cdot Age + Smoker\cdot HvyAlcoholConsump \\\\& + AnyHealthcare\cdot DiffWalk +\\\\ 
-     &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\\\ &PhysActivity\cdot Income\]+\varepsilon
+     &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\\\ &PhysActivity\cdot Income\]+\varepsilon \\\\
 \end{aligned}
 $$
+
 The summary of the regression of the linear probability model is as
 follow:
 
