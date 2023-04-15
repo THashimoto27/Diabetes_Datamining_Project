@@ -385,194 +385,100 @@ follow:
     -1.75341 -0.32024  0.05317  0.31446  1.22353 
 
     Coefficients:
-                                       Estimate Std. Error t value
-    (Intercept)                       5.402e-01  2.273e-03 237.646
-    HighBP                            7.140e-02  1.829e-03  39.041
-    HighChol                          5.283e-02  1.699e-03  31.086
-    CholCheck                         3.460e-02  2.164e-03  15.985
-    BMI                               8.713e-02  1.832e-03  47.567
-    Smoker                           -3.219e-03  1.623e-03  -1.984
-    Stroke                            1.686e-02  2.414e-03   6.982
-    HeartDiseaseorAttack              3.811e-02  2.482e-03  15.355
-    PhysActivity                     -3.456e-03  1.738e-03  -1.989
-    Fruits                           -2.308e-03  1.629e-03  -1.416
-    Veggies                          -4.145e-03  1.628e-03  -2.547
-    HvyAlcoholConsump                -2.905e-02  1.815e-03 -16.003
-    AnyHealthcare                    -3.624e-05  2.062e-03  -0.018
-    NoDocbcCost                      -8.194e-04  1.749e-03  -0.468
-    GenHlth                           1.136e-01  2.154e-03  52.744
-    MentHlth                         -6.827e-03  2.014e-03  -3.391
-    PhysHlth                         -1.306e-03  2.596e-03  -0.503
-    DiffWalk                          2.769e-02  2.429e-03  11.397
-    Sex                               2.143e-02  1.629e-03  13.156
-    Age                               6.115e-02  1.945e-03  31.438
-    Education                        -7.619e-03  1.811e-03  -4.207
-    Income                           -2.517e-02  1.967e-03 -12.795
-    GenHlth:DiffWalk                 -1.717e-02  2.252e-03  -7.627
-    BMI:Age                           2.976e-02  1.820e-03  16.352
-    Sex:Age                           2.024e-02  1.742e-03  11.617
-    HighChol:Age                     -1.461e-02  1.866e-03  -7.827
-    GenHlth:Income                    1.418e-02  2.036e-03   6.962
-    BMI:DiffWalk                     -1.514e-02  1.693e-03  -8.945
-    HighBP:HeartDiseaseorAttack      -1.169e-02  2.039e-03  -5.731
-    DiffWalk:Age                     -1.457e-02  2.384e-03  -6.111
-    GenHlth:PhysHlth                 -1.577e-02  2.124e-03  -7.423
-    HvyAlcoholConsump:Age            -8.422e-03  1.623e-03  -5.190
-    CholCheck:GenHlth                 7.512e-03  1.812e-03   4.147
-    GenHlth:Sex                      -5.582e-03  1.798e-03  -3.104
-    HighChol:HeartDiseaseorAttack    -1.061e-02  1.903e-03  -5.574
-    HighChol:GenHlth                  1.247e-02  1.879e-03   6.636
-    HeartDiseaseorAttack:Age         -1.416e-02  2.325e-03  -6.092
-    Smoker:GenHlth                   -3.720e-03  1.905e-03  -1.953
-    HeartDiseaseorAttack:GenHlth     -1.167e-02  2.184e-03  -5.342
-    Fruits:Education                 -4.449e-03  1.607e-03  -2.769
-    HeartDiseaseorAttack:DiffWalk     7.955e-03  1.703e-03   4.670
-    HighBP:HvyAlcoholConsump         -6.729e-03  1.724e-03  -3.903
-    HighChol:Stroke                  -6.477e-03  1.790e-03  -3.618
-    AnyHealthcare:Education          -4.973e-03  1.462e-03  -3.401
-    HighBP:CholCheck                  5.259e-03  2.006e-03   2.621
-    Smoker:Education                  5.783e-03  1.668e-03   3.468
-    BMI:HeartDiseaseorAttack         -6.988e-03  1.754e-03  -3.984
-    BMI:Smoker                        7.850e-03  1.689e-03   4.648
-    MentHlth:DiffWalk                 2.875e-03  1.658e-03   1.734
-    CholCheck:BMI                     6.305e-03  1.749e-03   3.605
-    HighChol:BMI                     -7.411e-03  1.741e-03  -4.256
-    HighBP:HighChol                   8.004e-03  1.804e-03   4.437
-    Fruits:Age                       -4.880e-03  1.614e-03  -3.024
-    PhysActivity:Fruits              -4.090e-03  1.581e-03  -2.587
-    Stroke:GenHlth                   -6.692e-03  1.835e-03  -3.647
-    HighBP:Sex                       -4.463e-03  1.802e-03  -2.477
-    Stroke:Age                       -7.106e-03  2.181e-03  -3.258
-    HeartDiseaseorAttack:NoDocbcCost -3.667e-03  1.537e-03  -2.385
-    CholCheck:Age                     5.785e-03  1.632e-03   3.545
-    CholCheck:HeartDiseaseorAttack   -8.301e-03  2.649e-03  -3.134
-    Fruits:Sex                       -4.255e-03  1.579e-03  -2.695
-    HvyAlcoholConsump:GenHlth        -5.618e-03  1.746e-03  -3.218
-    HighChol:MentHlth                 3.464e-03  1.779e-03   1.947
-    HighBP:AnyHealthcare             -3.148e-03  1.725e-03  -1.825
-    HighBP:Education                  3.159e-03  1.642e-03   1.923
-    Smoker:Stroke                    -4.196e-03  1.632e-03  -2.571
-    PhysActivity:Age                 -2.567e-03  1.750e-03  -1.467
-    PhysActivity:Education           -2.380e-03  1.731e-03  -1.375
-    CholCheck:AnyHealthcare           1.499e-03  8.802e-04   1.703
-    Veggies:NoDocbcCost              -2.043e-03  1.464e-03  -1.396
-    BMI:Sex                          -1.502e-03  1.739e-03  -0.864
-    MentHlth:Income                   3.452e-03  1.677e-03   2.058
-    PhysHlth:Income                  -6.629e-03  1.924e-03  -3.445
-    NoDocbcCost:DiffWalk             -4.846e-03  1.549e-03  -3.128
-    BMI:MentHlth                      4.668e-03  1.538e-03   3.035
-    HighChol:Sex                     -4.347e-03  1.690e-03  -2.572
-    Sex:Education                     4.255e-03  1.675e-03   2.540
-    Smoker:Sex                        2.595e-03  1.618e-03   1.603
-    PhysHlth:Age                     -4.363e-03  2.194e-03  -1.988
-    MentHlth:Age                      4.634e-03  1.890e-03   2.451
-    HeartDiseaseorAttack:PhysHlth     2.283e-03  1.747e-03   1.307
-    PhysActivity:PhysHlth            -3.579e-03  1.548e-03  -2.312
-    Stroke:MentHlth                  -7.576e-04  1.366e-03  -0.555
-    BMI:NoDocbcCost                   2.574e-03  1.476e-03   1.743
-    AnyHealthcare:Age                -3.109e-03  1.799e-03  -1.728
-    BMI:PhysActivity                  2.868e-03  1.594e-03   1.799
-    Smoker:DiffWalk                  -3.612e-03  1.852e-03  -1.951
-    Smoker:Age                        2.841e-03  1.688e-03   1.683
-    Smoker:HvyAlcoholConsump          2.194e-03  1.680e-03   1.306
-    AnyHealthcare:DiffWalk            2.890e-03  1.903e-03   1.518
-    AnyHealthcare:PhysHlth           -2.912e-03  1.795e-03  -1.622
-    Stroke:HeartDiseaseorAttack       2.490e-03  1.210e-03   2.057
-    PhysActivity:Income              -2.207e-03  1.802e-03  -1.225
-                                     Pr(>|t|)    
-    (Intercept)                       < 2e-16 ***
-    HighBP                            < 2e-16 ***
-    HighChol                          < 2e-16 ***
-    CholCheck                         < 2e-16 ***
-    BMI                               < 2e-16 ***
-    Smoker                           0.047313 *  
-    Stroke                           2.93e-12 ***
-    HeartDiseaseorAttack              < 2e-16 ***
-    PhysActivity                     0.046719 *  
-    Fruits                           0.156666    
-    Veggies                          0.010868 *  
-    HvyAlcoholConsump                 < 2e-16 ***
-    AnyHealthcare                    0.985981    
-    NoDocbcCost                      0.639457    
-    GenHlth                           < 2e-16 ***
-    MentHlth                         0.000698 ***
-    PhysHlth                         0.614918    
-    DiffWalk                          < 2e-16 ***
-    Sex                               < 2e-16 ***
-    Age                               < 2e-16 ***
-    Education                        2.59e-05 ***
-    Income                            < 2e-16 ***
-    GenHlth:DiffWalk                 2.44e-14 ***
-    BMI:Age                           < 2e-16 ***
-    Sex:Age                           < 2e-16 ***
-    HighChol:Age                     5.07e-15 ***
-    GenHlth:Income                   3.38e-12 ***
-    BMI:DiffWalk                      < 2e-16 ***
-    HighBP:HeartDiseaseorAttack      1.00e-08 ***
-    DiffWalk:Age                     9.93e-10 ***
-    GenHlth:PhysHlth                 1.16e-13 ***
-    HvyAlcoholConsump:Age            2.11e-07 ***
-    CholCheck:GenHlth                3.37e-05 ***
-    GenHlth:Sex                      0.001912 ** 
-    HighChol:HeartDiseaseorAttack    2.50e-08 ***
-    HighChol:GenHlth                 3.25e-11 ***
-    HeartDiseaseorAttack:Age         1.12e-09 ***
-    Smoker:GenHlth                   0.050827 .  
-    HeartDiseaseorAttack:GenHlth     9.23e-08 ***
-    Fruits:Education                 0.005620 ** 
-    HeartDiseaseorAttack:DiffWalk    3.01e-06 ***
-    HighBP:HvyAlcoholConsump         9.50e-05 ***
-    HighChol:Stroke                  0.000297 ***
-    AnyHealthcare:Education          0.000673 ***
-    HighBP:CholCheck                 0.008768 ** 
-    Smoker:Education                 0.000524 ***
-    BMI:HeartDiseaseorAttack         6.79e-05 ***
-    BMI:Smoker                       3.35e-06 ***
-    MentHlth:DiffWalk                0.082975 .  
-    CholCheck:BMI                    0.000313 ***
-    HighChol:BMI                     2.09e-05 ***
-    HighBP:HighChol                  9.15e-06 ***
-    Fruits:Age                       0.002496 ** 
-    PhysActivity:Fruits              0.009676 ** 
-    Stroke:GenHlth                   0.000266 ***
-    HighBP:Sex                       0.013244 *  
-    Stroke:Age                       0.001124 ** 
-    HeartDiseaseorAttack:NoDocbcCost 0.017067 *  
-    CholCheck:Age                    0.000393 ***
-    CholCheck:HeartDiseaseorAttack   0.001726 ** 
-    Fruits:Sex                       0.007050 ** 
-    HvyAlcoholConsump:GenHlth        0.001290 ** 
-    HighChol:MentHlth                0.051543 .  
-    HighBP:AnyHealthcare             0.067959 .  
-    HighBP:Education                 0.054425 .  
-    Smoker:Stroke                    0.010131 *  
-    PhysActivity:Age                 0.142433    
-    PhysActivity:Education           0.169065    
-    CholCheck:AnyHealthcare          0.088663 .  
-    Veggies:NoDocbcCost              0.162770    
-    BMI:Sex                          0.387737    
-    MentHlth:Income                  0.039598 *  
-    PhysHlth:Income                  0.000571 ***
-    NoDocbcCost:DiffWalk             0.001761 ** 
-    BMI:MentHlth                     0.002409 ** 
-    HighChol:Sex                     0.010100 *  
-    Sex:Education                    0.011081 *  
-    Smoker:Sex                       0.108878    
-    PhysHlth:Age                     0.046767 *  
-    MentHlth:Age                     0.014241 *  
-    HeartDiseaseorAttack:PhysHlth    0.191326    
-    PhysActivity:PhysHlth            0.020757 *  
-    Stroke:MentHlth                  0.579203    
-    BMI:NoDocbcCost                  0.081257 .  
-    AnyHealthcare:Age                0.083994 .  
-    BMI:PhysActivity                 0.072039 .  
-    Smoker:DiffWalk                  0.051119 .  
-    Smoker:Age                       0.092318 .  
-    Smoker:HvyAlcoholConsump         0.191540    
-    AnyHealthcare:DiffWalk           0.128947    
-    AnyHealthcare:PhysHlth           0.104798    
-    Stroke:HeartDiseaseorAttack      0.039692 *  
-    PhysActivity:Income              0.220572    
+                                       Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)                       5.402e-01  2.273e-03 237.646  < 2e-16 ***
+    HighBP                            7.140e-02  1.829e-03  39.041  < 2e-16 ***
+    HighChol                          5.283e-02  1.699e-03  31.086  < 2e-16 ***
+    CholCheck                         3.460e-02  2.164e-03  15.985  < 2e-16 ***
+    BMI                               8.713e-02  1.832e-03  47.567  < 2e-16 ***
+    Smoker                           -3.219e-03  1.623e-03  -1.984 0.047313 *  
+    Stroke                            1.686e-02  2.414e-03   6.982 2.93e-12 ***
+    HeartDiseaseorAttack              3.811e-02  2.482e-03  15.355  < 2e-16 ***
+    PhysActivity                     -3.456e-03  1.738e-03  -1.989 0.046719 *  
+    Fruits                           -2.308e-03  1.629e-03  -1.416 0.156666    
+    Veggies                          -4.145e-03  1.628e-03  -2.547 0.010868 *  
+    HvyAlcoholConsump                -2.905e-02  1.815e-03 -16.003  < 2e-16 ***
+    AnyHealthcare                    -3.624e-05  2.062e-03  -0.018 0.985981    
+    NoDocbcCost                      -8.194e-04  1.749e-03  -0.468 0.639457    
+    GenHlth                           1.136e-01  2.154e-03  52.744  < 2e-16 ***
+    MentHlth                         -6.827e-03  2.014e-03  -3.391 0.000698 ***
+    PhysHlth                         -1.306e-03  2.596e-03  -0.503 0.614918    
+    DiffWalk                          2.769e-02  2.429e-03  11.397  < 2e-16 ***
+    Sex                               2.143e-02  1.629e-03  13.156  < 2e-16 ***
+    Age                               6.115e-02  1.945e-03  31.438  < 2e-16 ***
+    Education                        -7.619e-03  1.811e-03  -4.207 2.59e-05 ***
+    Income                           -2.517e-02  1.967e-03 -12.795  < 2e-16 ***
+    GenHlth:DiffWalk                 -1.717e-02  2.252e-03  -7.627 2.44e-14 ***
+    BMI:Age                           2.976e-02  1.820e-03  16.352  < 2e-16 ***
+    Sex:Age                           2.024e-02  1.742e-03  11.617  < 2e-16 ***
+    HighChol:Age                     -1.461e-02  1.866e-03  -7.827 5.07e-15 ***
+    GenHlth:Income                    1.418e-02  2.036e-03   6.962 3.38e-12 ***
+    BMI:DiffWalk                     -1.514e-02  1.693e-03  -8.945  < 2e-16 ***
+    HighBP:HeartDiseaseorAttack      -1.169e-02  2.039e-03  -5.731 1.00e-08 ***
+    DiffWalk:Age                     -1.457e-02  2.384e-03  -6.111 9.93e-10 ***
+    GenHlth:PhysHlth                 -1.577e-02  2.124e-03  -7.423 1.16e-13 ***
+    HvyAlcoholConsump:Age            -8.422e-03  1.623e-03  -5.190 2.11e-07 ***
+    CholCheck:GenHlth                 7.512e-03  1.812e-03   4.147 3.37e-05 ***
+    GenHlth:Sex                      -5.582e-03  1.798e-03  -3.104 0.001912 ** 
+    HighChol:HeartDiseaseorAttack    -1.061e-02  1.903e-03  -5.574 2.50e-08 ***
+    HighChol:GenHlth                  1.247e-02  1.879e-03   6.636 3.25e-11 ***
+    HeartDiseaseorAttack:Age         -1.416e-02  2.325e-03  -6.092 1.12e-09 ***
+    Smoker:GenHlth                   -3.720e-03  1.905e-03  -1.953 0.050827 .  
+    HeartDiseaseorAttack:GenHlth     -1.167e-02  2.184e-03  -5.342 9.23e-08 ***
+    Fruits:Education                 -4.449e-03  1.607e-03  -2.769 0.005620 ** 
+    HeartDiseaseorAttack:DiffWalk     7.955e-03  1.703e-03   4.670 3.01e-06 ***
+    HighBP:HvyAlcoholConsump         -6.729e-03  1.724e-03  -3.903 9.50e-05 ***
+    HighChol:Stroke                  -6.477e-03  1.790e-03  -3.618 0.000297 ***
+    AnyHealthcare:Education          -4.973e-03  1.462e-03  -3.401 0.000673 ***
+    HighBP:CholCheck                  5.259e-03  2.006e-03   2.621 0.008768 ** 
+    Smoker:Education                  5.783e-03  1.668e-03   3.468 0.000524 ***
+    BMI:HeartDiseaseorAttack         -6.988e-03  1.754e-03  -3.984 6.79e-05 ***
+    BMI:Smoker                        7.850e-03  1.689e-03   4.648 3.35e-06 ***
+    MentHlth:DiffWalk                 2.875e-03  1.658e-03   1.734 0.082975 .  
+    CholCheck:BMI                     6.305e-03  1.749e-03   3.605 0.000313 ***
+    HighChol:BMI                     -7.411e-03  1.741e-03  -4.256 2.09e-05 ***
+    HighBP:HighChol                   8.004e-03  1.804e-03   4.437 9.15e-06 ***
+    Fruits:Age                       -4.880e-03  1.614e-03  -3.024 0.002496 ** 
+    PhysActivity:Fruits              -4.090e-03  1.581e-03  -2.587 0.009676 ** 
+    Stroke:GenHlth                   -6.692e-03  1.835e-03  -3.647 0.000266 ***
+    HighBP:Sex                       -4.463e-03  1.802e-03  -2.477 0.013244 *  
+    Stroke:Age                       -7.106e-03  2.181e-03  -3.258 0.001124 ** 
+    HeartDiseaseorAttack:NoDocbcCost -3.667e-03  1.537e-03  -2.385 0.017067 *  
+    CholCheck:Age                     5.785e-03  1.632e-03   3.545 0.000393 ***
+    CholCheck:HeartDiseaseorAttack   -8.301e-03  2.649e-03  -3.134 0.001726 ** 
+    Fruits:Sex                       -4.255e-03  1.579e-03  -2.695 0.007050 ** 
+    HvyAlcoholConsump:GenHlth        -5.618e-03  1.746e-03  -3.218 0.001290 ** 
+    HighChol:MentHlth                 3.464e-03  1.779e-03   1.947 0.051543 .  
+    HighBP:AnyHealthcare             -3.148e-03  1.725e-03  -1.825 0.067959 .  
+    HighBP:Education                  3.159e-03  1.642e-03   1.923 0.054425 .  
+    Smoker:Stroke                    -4.196e-03  1.632e-03  -2.571 0.010131 *  
+    PhysActivity:Age                 -2.567e-03  1.750e-03  -1.467 0.142433    
+    PhysActivity:Education           -2.380e-03  1.731e-03  -1.375 0.169065    
+    CholCheck:AnyHealthcare           1.499e-03  8.802e-04   1.703 0.088663 .  
+    Veggies:NoDocbcCost              -2.043e-03  1.464e-03  -1.396 0.162770    
+    BMI:Sex                          -1.502e-03  1.739e-03  -0.864 0.387737    
+    MentHlth:Income                   3.452e-03  1.677e-03   2.058 0.039598 *  
+    PhysHlth:Income                  -6.629e-03  1.924e-03  -3.445 0.000571 ***
+    NoDocbcCost:DiffWalk             -4.846e-03  1.549e-03  -3.128 0.001761 ** 
+    BMI:MentHlth                      4.668e-03  1.538e-03   3.035 0.002409 ** 
+    HighChol:Sex                     -4.347e-03  1.690e-03  -2.572 0.010100 *  
+    Sex:Education                     4.255e-03  1.675e-03   2.540 0.011081 *  
+    Smoker:Sex                        2.595e-03  1.618e-03   1.603 0.108878    
+    PhysHlth:Age                     -4.363e-03  2.194e-03  -1.988 0.046767 *  
+    MentHlth:Age                      4.634e-03  1.890e-03   2.451 0.014241 *  
+    HeartDiseaseorAttack:PhysHlth     2.283e-03  1.747e-03   1.307 0.191326    
+    PhysActivity:PhysHlth            -3.579e-03  1.548e-03  -2.312 0.020757 *  
+    Stroke:MentHlth                  -7.576e-04  1.366e-03  -0.555 0.579203    
+    BMI:NoDocbcCost                   2.574e-03  1.476e-03   1.743 0.081257 .  
+    AnyHealthcare:Age                -3.109e-03  1.799e-03  -1.728 0.083994 .  
+    BMI:PhysActivity                  2.868e-03  1.594e-03   1.799 0.072039 .  
+    Smoker:DiffWalk                  -3.612e-03  1.852e-03  -1.951 0.051119 .  
+    Smoker:Age                        2.841e-03  1.688e-03   1.683 0.092318 .  
+    Smoker:HvyAlcoholConsump          2.194e-03  1.680e-03   1.306 0.191540    
+    AnyHealthcare:DiffWalk            2.890e-03  1.903e-03   1.518 0.128947    
+    AnyHealthcare:PhysHlth           -2.912e-03  1.795e-03  -1.622 0.104798    
+    Stroke:HeartDiseaseorAttack       2.490e-03  1.210e-03   2.057 0.039692 *  
+    PhysActivity:Income              -2.207e-03  1.802e-03  -1.225 0.220572    
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
