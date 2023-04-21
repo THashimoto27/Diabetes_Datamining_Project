@@ -146,7 +146,35 @@ by diabees status from the raw data.
 
 ### 2-2-1. Best Predictive Model
 
-### 2-2-2. Factors related to “diabetes”
+### 2-2-2. Scoring
+
+After getting the best predictive model, we try to give individuals the
+risk score for the diabetes. The way to do is as follow:
+
+1.  Use the estimated coefficients
+
+we used the estimated coefficients (see [the detail in
+Appendix](6-1.%20Stewise%20selection%20model)) to estimate the
+probability of diabetes for individuals with a linear probability model
+and the logit model.
+$$
+\begin{aligned}
+\hat{y}= \beta\_0+\beta\_1 (each\\ variables)+ \beta\_2 (cross\\ temrs(only\\ LPM))
+\end{aligned}
+$$
+
+1.  100 scaling (only LP&lt;)
+
+To show *ŷ* as a score in the linear probability model, we scaled it
+into the format 0-100 points.
+$$
+\begin{aligned}
+score&= 100\hat{y}\\\\ where\\ &if\\ \hat{y}&gt;100,\\ then\\ score=100\\\\
+&if \hat{y}&lt;0,\\ then\\ score=0
+\end{aligned}
+$$
+
+### 2-2-3. Factors related to “diabetes”
 
 In this paper, we use the Natural Language Processing to identify
 factors that are much related to “diabetes” because if we can get
@@ -265,10 +293,235 @@ of the prediction for diabetes. However, we need to careful about what
 sometimes the logit model will be better. (if you have an interest ROC
 curve, see [Appendix](##%206-2.%20ROC%20curve%20linear%20vs%20logit))
 
-### 3-1-3. Scoring
+## 3-2. Scoring
 
-From the linear probability model and the logit model, the individual
-risk score in the data is as follow:
+### 3-2-1. What the crucial variables are to directly affect on the risk score?
+
+From the linear probability model, the weights to get individual risk
+scores in the data is the coefficient of the estimation. In the
+coefficients, the direct marginal effects on the risk score are as
+follow:
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HighBP</td>
+<td style="text-align: right;">0.0714000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HighChol</td>
+<td style="text-align: right;">0.0528300</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CholCheck</td>
+<td style="text-align: right;">0.0346000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BMI</td>
+<td style="text-align: right;">0.0871300</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Smoker</td>
+<td style="text-align: right;">-0.0032190</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stroke</td>
+<td style="text-align: right;">0.0168600</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HeartDiseaseorAttack</td>
+<td style="text-align: right;">0.0381100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhysActivity</td>
+<td style="text-align: right;">-0.0034560</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: right;">-0.0023080</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Veggies</td>
+<td style="text-align: right;">-0.0041450</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HvyAlcoholConsump</td>
+<td style="text-align: right;">-0.0290500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AnyHealthcare</td>
+<td style="text-align: right;">-0.0000362</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoDocbcCost</td>
+<td style="text-align: right;">-0.0008194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GenHlth</td>
+<td style="text-align: right;">0.1136000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MentHlth</td>
+<td style="text-align: right;">-0.0068270</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhysHlth</td>
+<td style="text-align: right;">-0.0013060</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DiffWalk</td>
+<td style="text-align: right;">0.0276900</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sex</td>
+<td style="text-align: right;">0.0214300</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Age</td>
+<td style="text-align: right;">0.0611500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education</td>
+<td style="text-align: right;">-0.0076190</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Income</td>
+<td style="text-align: right;">-0.0251700</td>
+</tr>
+</tbody>
+</table>
+
+where these coefficients are the result of the estimation with scaled
+data (if you want to see all coefficients, see [the
+appendix](##%206-1.%20Stewise%20selection%20model)). So, in the binary
+data, the most highest coefficient in the above is “HighBP”(high blood
+pressure) and the lowest one is “HvyAlcoholConsump” (heavy alcohol
+consumption). Also, except for the dummy variables, BMI looks like
+severly affect the risk score.
+
+Also, from the logit model, the weights to get individual risk scores in
+the data is the coefficient of the estimation. In the coefficients, the
+direct marginal effects on the risk score are as follow:
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HighBP</td>
+<td style="text-align: right;">0.364689</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HighChol</td>
+<td style="text-align: right;">0.364689</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CholCheck</td>
+<td style="text-align: right;">0.364689</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BMI</td>
+<td style="text-align: right;">0.537938</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Smoker</td>
+<td style="text-align: right;">-0.000839</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stroke</td>
+<td style="text-align: right;">-0.000839</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HeartDiseaseorAttack</td>
+<td style="text-align: right;">-0.000839</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhysActivity</td>
+<td style="text-align: right;">-0.000839</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: right;">-0.000839</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Veggies</td>
+<td style="text-align: right;">-0.024920</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HvyAlcoholConsump</td>
+<td style="text-align: right;">-0.151613</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AnyHealthcare</td>
+<td style="text-align: right;">-0.151613</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoDocbcCost</td>
+<td style="text-align: right;">-0.151613</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GenHlth</td>
+<td style="text-align: right;">-0.151613</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MentHlth</td>
+<td style="text-align: right;">-0.151613</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhysHlth</td>
+<td style="text-align: right;">-0.083731</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DiffWalk</td>
+<td style="text-align: right;">-0.083731</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sex</td>
+<td style="text-align: right;">-0.083731</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Age</td>
+<td style="text-align: right;">-0.083731</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education</td>
+<td style="text-align: right;">-0.083731</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Income</td>
+<td style="text-align: right;">-0.083731</td>
+</tr>
+</tbody>
+</table>
+
+So, in the binary data, the most highest coefficient in the above is
+“GenHlth”(general health) and the lowest one is “HvyAlcoholConsump”
+(heavy alcohol consumption). Also, except for the dummy variables, BMI
+looks like severly affect the risk score as well as the above linear
+model. Note that coefficients of HighBP is still positive and large.
+
+So, from these result, the crucial variables to increase the risk score
+of diabetes is **High blood pressure” and “General health”**. And, the
+variable that does not related to the diabetes or make risk score
+decrease is **“Heavy alcohol consumption”**. Besides, please be careful
+about **“BMI”** that increases risk scores as your BMI increase.
+
+### 3-2-2. which risk socre model is better between LPM and Logit?
+
+Next we try to discuss which risk score model is better between LPM and
+Logit for the view of scoring. So, we shows the shape of the
+distribution of the predicted risk scores from the actual data as
+follow:
 
 <img src="./fig/lpm_score.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="./fig/logit_score.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="./fig/relation_score.png" width="50%" height="50%" style="display: block; margin: auto;" />
 
@@ -287,9 +540,6 @@ risk score in the data is as follow:
 </tbody>
 </table>
 
-where in linear model the below 0 score is changed into 0 and the above
-100 score is changed into 100.
-
 From the above graphs, the linear model is like the normal distribution
 that the top was biased to slightly the right. Also, the logit model is
 a distribution with a dent in the middle. The bottom of the graph shows
@@ -306,8 +556,8 @@ possibly, and many people gives scores of below 50 points compared to
 linear model. In practice, the scoring has a function of warning and so,
 we think many low score should not be given.
 
-Accordingly, we would select the way of linear scoring model for getting
-score of diabetes.
+Accordingly, we think the linear probability model is better scoring
+model than logit.
 
 ## 3-3. What kind of data is more helpful?
 
