@@ -6,7 +6,6 @@ author:
 - "Takehiro Hasimoto (UT EID - TH33985)^[take.hashimoto0527@utexas.edu]"
 date: ''
 output:
-  word_document: default
   pdf_document: default
 abstract: "Diabetes is a prevalent chronic disease in the US, affecting millions of
   people and placing a significant financial burden on the economy. Diabetes is a
@@ -65,6 +64,7 @@ library(knitr)
 library(tokenizers)
 library(stopwords)
 library(arulesViz)
+library(kableExtra)
 load("./data/diabetes.RData")
 ```
 
@@ -451,72 +451,7 @@ knitr::kable(table,caption = "Comparison of LPM and Logit")
 
 From these tables, the accuracy rate of the linear model is 0.753(=75.3%) and that of the logit model is 0.748(=74.8%). Also, each true positive rate (TPR) is 0.79 and 0.768, each false positive rate (FPR) is 0.282 (=Specificity: 70.8%) and 0.272 (=Specificity: 72.8%), and each false discovery rate (FDR) is 0.263 (=Precision: 73.7%) and 0.253 (=Precision: 74.7%).
 
-Besides, the ROC curves of the linear probability model and logit model is in the following.
-
-```{r ,  eval=FALSE,include=FALSE}
-
-roc = data.frame()
-
-for (i in seq(0, 1, by = 0.01)){
-  ## Linear Probability Model
-  lm_db <- lm(Diabetes_binary~ HighBP + HighChol + CholCheck + BMI + Smoker + 
-      Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
-      HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
-      MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
-      Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
-      GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
-      DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
-      CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
-      HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
-      HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk +
-      HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
-      HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
-      BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
-      HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
-      HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
-      CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
-      HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
-      HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
-      CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
-      MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
-      BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
-      PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
-      PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
-      AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
-      Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
-      AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income, data = data_cv)
-  phat_test_lm = predict(lm_db, data_cv, type='response')
-  yhat_test_lm = ifelse(phat_test_lm > i, 1, 0)
-  confusion_out_lm = table(y = data_cv$Diabetes_binary ,yhat = yhat_test_lm )
-  
-  ## Logit Model
-  logit_db <- glm(Diabetes_binary~ ., data = data_cv, family=binomial)
-  phat_test_logit = predict(logit_db, data_cv, type='response')
-  yhat_test_logit = ifelse(phat_test_logit> i, 1, 0)
-  confusion_out_logit = table(y = data_cv$Diabetes_binary, yhat = yhat_test_logit)
-  
-  ## TPR
-  TPR_lm = tryCatch({
-    (confusion_out_lm[2,2])/(confusion_out_lm[2,1]+confusion_out_lm[2,2])},error=function(e) {"."})
-  TPR_logit = tryCatch({ (confusion_out_logit[2,2])/(confusion_out_logit[2,1]+confusion_out_logit[2,2])}, error=function(e) {"."})
-  
-  ## FPR
-  FPR_lm = tryCatch({(confusion_out_lm[1,2])/(confusion_out_lm[1,1]+confusion_out_lm[1,2])}, error=function(e) {"."})
-  FPR_logit = tryCatch({(confusion_out_logit[1,2])/(confusion_out_logit[1,1]+confusion_out_logit[1,2])},error=function(e) {"."})
-  roc = rbind(rbind(c(i,TPR_lm,TPR_logit,FPR_lm,FPR_logit)),roc)
-}
-colnames(roc) <- c("TPR_lm","TPR_logit","FPR_lm","FPR_logit")
-roc2 =data.frame(cbind(TPR_lm=as.numeric(roc[2:100,]$TPR_lm),FPR_lm=as.numeric(roc[2:100,]$FPR_lm), TPR_logit=as.numeric(roc[2:100,]$TPR_logit), FPR_logit=as.numeric(roc[2:100,]$FPR_logit)))
-
-ggplot(roc2)+geom_line(aes(x=FPR_lm,y=TPR_lm),colour="red")+geom_line(aes(x=FPR_logit,y=TPR_logit),color="blue")+
-  ggtitle("ROC curve:linear vs logit")
-ggsave("./fig/roc.png")
-```
-
-```{r, echo=FALSE,out.width ="50%", out.height = "50%",fig.align='center', fig.cap=paste("ROC Curves between the logit and the probit")}
-knitr::include_graphics("./fig/roc.png")
-```
-The red line of this graph represents the best linear model and the blue line represents the logit model. These gaps are so little but the linear model is slightly better than that the logit model.
+Besides, The ROC curves shows that the linear model is slightly better than that the logit model ([see Appendix](5-3. ROC curve)).
 
 Accordingly, from the result, the linear model can be better than the logit model because the linear model has the lowest rmse and the ability of the prediction for diabetes. However, we need to careful about what sometimes the logit model will be better.
 
@@ -548,6 +483,18 @@ ggplot(data_score) + geom_point(aes(x=score_linear,y=score_logit))+
   labs(title = "Relationship of each risk scores by linear and logit")
 ggsave("./fig/relation_score.png")
 cor(data_score$score_linear,data_score$score_logit)
+
+
+lm_low = sum(ifelse(0<=linear_score$score&linear_score$score<=25, 1, 0))/nrow(linear_score)*100
+lm_mod = sum(ifelse(26<=linear_score$score&linear_score$score<=50, 1, 0))/nrow(linear_score)*100
+lm_high = sum(ifelse(51<=linear_score$score&linear_score$score<=75, 1, 0))/nrow(linear_score)*100
+lm_vhigh = sum(ifelse(76<=linear_score$score&linear_score$score<=100, 1, 0))/nrow(linear_score)*100
+
+lg_low = sum(ifelse(0<=logit_score$score&logit_score$score<=25, 1, 0))/nrow(logit_score)*100
+lg_mod = sum(ifelse(26<=logit_score$score&logit_score$score<=50, 1, 0))/nrow(logit_score)*100
+lg_high = sum(ifelse(51<=logit_score$score&logit_score$score<=75, 1, 0))/nrow(logit_score)*100
+lg_vhigh = sum(ifelse(76<=logit_score$score&logit_score$score<=100, 1, 0))/nrow(logit_score)*100
+
 ```
 
 From the linear probability model, the weights to get individual risk scores in the data is the coefficient of the estimation. In the coefficients, the direct marginal effects on the risk score are as follow:
@@ -558,11 +505,12 @@ colnames(kable_data)= c("linear", "logit")
 knitr::kable(kable_data,caption = "Coefficients(Weights) of LPM and Logit")
 ```
 
+
 where these coefficients are the result of the estimation with scaled data (if you want to see all coefficients, see [the appendix](## 5-2. Stewise selection model)). So, in the binary data, the most highest coefficient in the above is "HighBP"(high blood pressure) and the lowest one is "HvyAlcoholConsump" (heavy alcohol consumption). Also, except for the dummy variables, BMI looks like largely affect the risk score.
 
 Also, we also shows the case of the logit model. In the binary data, the most highest coefficient in the above is "GenHlth "(general health) and the lowest one is "HvyAlcoholConsump" (heavy alcohol consumption). Also, except for the dummy variables, BMI looks like largely affect the risk score as well as the above linear model. Note that coefficients of HighBP is still positive and large.
 
-So, from these result, the crucial variables to increase the risk score of diabetes is **High blood pressure" and "General health"**. And, the variable that does not related to the diabetes or make risk score decrease is **"Heavy alcohol consumption"**. Besides, please be careful about **"BMI"** that increases risk scores as your BMI increase.
+From these result, the crucial variables to increase the risk score of diabetes is **High blood pressure" and "General health"**. And, the variable that does not related to the diabetes or make risk score decrease is **"Heavy alcohol consumption"**. Besides, please be careful about **"BMI"** that increases risk scores as your BMI increase.
 
 
 ### 3-2-2. Which risk socre model is better between LPM and Logit?
@@ -578,6 +526,8 @@ knitr::include_graphics("./fig/logit_score.png")
 where the correlation between predicted output in the linear model and the logit model is 0.975.
 
 From the above graphs, the linear model is like the normal distribution that the top was biased to slightly the right. Also, the logit model is a distribution with a dent in the middle. The bottom of the graph shows the relationship between two ways to score, and these correlation is 0.975. 
+
+Besides, we also saw the distribution of risk scores by thresholds and we got the overall results of the linear and the logit looked the same. ([see Appendix](## 5-4. The ratio of people who got risk scores by each thresholds))
 
 From these result, whichever ways to score we select, almost scores are the same as another way. So, we can focus on the shape of the distribution for scores. In general, a scoring distribution will be normal hopefully because we have already had some uncertain conditions for this prediction, such as unknown factors or something like this. Also, the result of the logit model can distinguish diabetes or not as possibly, and many people gives scores of below 50 points compared to linear model. In practice, the scoring has a function of warning and so, we think many low score should not be given.
 
@@ -670,7 +620,7 @@ For the second analysis, we used the best linear probability model and the logit
 
 For the fourth analysis, we used abstracts of  1000 medical academic papers from Pubmed to find other factors to sophisticate our model. In this analysis, with Natural Language Processing, we apply apriori function in R and created the node graph. Then, we got factors that related to "diabetes", and identified factors that we should collect additionally while comparing to our current factors of data. From the result, we found the words that are related to "diabetes" academic paper are fasting, metabolic, blood glucose level, cholesterol level, stress, inflammatory and pregnancy. We suggested to collect these kind of data to construct better predictive diabetes model.
 
-\newpage
+
 
 # 5. Appendix
 
@@ -684,6 +634,8 @@ knitr::include_graphics("./fig/hist_education.png")
 knitr::include_graphics("./fig/hist_income.png")
 knitr::include_graphics("./fig/hist_bmi.png")
 ```
+
+\newpage
 
 ## 5-2. Stewise selection model
 
@@ -730,7 +682,90 @@ Also, the summary of the logit model is as follow:
 knitr::include_graphics("./fig/reg2.png")
 ```
 
-## 5-3. 
+\newpage
+
+## 5-3. ROC curve
+
+Besides, the ROC curves of the linear probability model and logit model is in the following.
+
+```{r ,  eval=FALSE,include=FALSE}
+
+roc = data.frame()
+
+for (i in seq(0, 1, by = 0.01)){
+  ## Linear Probability Model
+  lm_db <- lm(Diabetes_binary~ HighBP + HighChol + CholCheck + BMI + Smoker + 
+      Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies + 
+      HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + 
+      MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + 
+      Income + GenHlth:DiffWalk + BMI:Age + Sex:Age + HighChol:Age + 
+      GenHlth:Income + BMI:DiffWalk + HighBP:HeartDiseaseorAttack + 
+      DiffWalk:Age + GenHlth:PhysHlth + HvyAlcoholConsump:Age + 
+      CholCheck:GenHlth + GenHlth:Sex + HighChol:HeartDiseaseorAttack + 
+      HighChol:GenHlth + HeartDiseaseorAttack:Age + Smoker:GenHlth + 
+      HeartDiseaseorAttack:GenHlth + Fruits:Education + HeartDiseaseorAttack:DiffWalk +
+      HighBP:HvyAlcoholConsump + HighChol:Stroke + AnyHealthcare:Education + 
+      HighBP:CholCheck + Smoker:Education + BMI:HeartDiseaseorAttack + 
+      BMI:Smoker + MentHlth:DiffWalk + CholCheck:BMI + HighChol:BMI + 
+      HighBP:HighChol + Fruits:Age + PhysActivity:Fruits + Stroke:GenHlth + 
+      HighBP:Sex + Stroke:Age + HeartDiseaseorAttack:NoDocbcCost + 
+      CholCheck:Age + CholCheck:HeartDiseaseorAttack + Fruits:Sex + 
+      HvyAlcoholConsump:GenHlth + HighChol:MentHlth + HighBP:AnyHealthcare + 
+      HighBP:Education + Smoker:Stroke + PhysActivity:Age + PhysActivity:Education + 
+      CholCheck:AnyHealthcare + Veggies:NoDocbcCost + BMI:Sex + 
+      MentHlth:Income + PhysHlth:Income + NoDocbcCost:DiffWalk + 
+      BMI:MentHlth + HighChol:Sex + Sex:Education + Smoker:Sex + 
+      PhysHlth:Age + MentHlth:Age + HeartDiseaseorAttack:PhysHlth + 
+      PhysActivity:PhysHlth + Stroke:MentHlth + BMI:NoDocbcCost + 
+      AnyHealthcare:Age + BMI:PhysActivity + Smoker:DiffWalk + 
+      Smoker:Age + Smoker:HvyAlcoholConsump + AnyHealthcare:DiffWalk + 
+      AnyHealthcare:PhysHlth + Stroke:HeartDiseaseorAttack + PhysActivity:Income, data = data_cv)
+  phat_test_lm = predict(lm_db, data_cv, type='response')
+  yhat_test_lm = ifelse(phat_test_lm > i, 1, 0)
+  confusion_out_lm = table(y = data_cv$Diabetes_binary ,yhat = yhat_test_lm )
+  
+  ## Logit Model
+  logit_db <- glm(Diabetes_binary~ ., data = data_cv, family=binomial)
+  phat_test_logit = predict(logit_db, data_cv, type='response')
+  yhat_test_logit = ifelse(phat_test_logit> i, 1, 0)
+  confusion_out_logit = table(y = data_cv$Diabetes_binary, yhat = yhat_test_logit)
+  
+  ## TPR
+  TPR_lm = tryCatch({
+    (confusion_out_lm[2,2])/(confusion_out_lm[2,1]+confusion_out_lm[2,2])},error=function(e) {"."})
+  TPR_logit = tryCatch({ (confusion_out_logit[2,2])/(confusion_out_logit[2,1]+confusion_out_logit[2,2])}, error=function(e) {"."})
+  
+  ## FPR
+  FPR_lm = tryCatch({(confusion_out_lm[1,2])/(confusion_out_lm[1,1]+confusion_out_lm[1,2])}, error=function(e) {"."})
+  FPR_logit = tryCatch({(confusion_out_logit[1,2])/(confusion_out_logit[1,1]+confusion_out_logit[1,2])},error=function(e) {"."})
+  roc = rbind(rbind(c(i,TPR_lm,TPR_logit,FPR_lm,FPR_logit)),roc)
+}
+colnames(roc) <- c("TPR_lm","TPR_logit","FPR_lm","FPR_logit")
+roc2 =data.frame(cbind(TPR_lm=as.numeric(roc[2:100,]$TPR_lm),FPR_lm=as.numeric(roc[2:100,]$FPR_lm), TPR_logit=as.numeric(roc[2:100,]$TPR_logit), FPR_logit=as.numeric(roc[2:100,]$FPR_logit)))
+
+ggplot(roc2)+geom_line(aes(x=FPR_lm,y=TPR_lm),colour="red")+geom_line(aes(x=FPR_logit,y=TPR_logit),color="blue")+
+  ggtitle("ROC curve:linear vs logit")
+ggsave("./fig/roc.png")
+```
+
+```{r, echo=FALSE,out.width ="50%", out.height = "50%",fig.align='center', fig.cap=paste("ROC Curves between the logit and the probit")}
+knitr::include_graphics("./fig/roc.png")
+```
+The red line of this graph represents the best linear model and the blue line represents the logit model. These gaps are so little but the linear model is slightly better than that the logit model.
+
+
+
+## 5-4. Ratio of people who got risk scores by each thresholds
+
+```{r, echo=FALSE,out.width ="50%", out.height = "50%",fig.align='center'}
+linear=c(low=22.3, moderate=23.4, high=30.2, veryhigh=20.1)
+logit=c(low=25.6, moderate=21.3, high=25.9, veryhigh=20.9)
+knitr::kable(cbind(linear,logit),caption = "The ratio of people who got risk scores by each thresholds (%: all observations n= 70692)")
+```
+
+We saw the distribution of risk scores by thresholds which means low score is below 25 points, moderate score is over 26 and below 50 points, high score is over 51 and below 75 points, and very high score is over 76 points. The above table shows the ratio of the number of people who get each score overall observations. The ratio of people who got high scores is 30.2% in the linear model and 25.9% in the logit model, which looks like a large differenece. Similarly, The ratio of people who got low scores is 22.3% in the linear model and 25.6% in the logit model. However, the overall results seem us the same.
+
+## 5-5. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide',eval=FALSE}
 #  we created a correlation plot to identify the variables that have high correlation with diabetes.
@@ -766,9 +801,9 @@ Diabetes.2 <- read.csv("./data/Diabetes2.csv")
 Random_Forest2=randomForest(Diabetes_binary ~.,data =Diabetes.2)
 varImpPlot(Random_Forest2, main = "Imoprtant factors affecting Diabetes")
 
-Diabetes3 <- read.csv("./data/Diabetes3.csv")
-Random_Forest3=randomForest(Diabetes_binary ~.,data =Diabetes3)
-varImpPlot(Random_Forest3, main = "Imoprtant factors affecting Diabetes")
+#Diabetes3 <- read.csv("./data/Diabetes3.csv")
+#Random_Forest3=randomForest(Diabetes_binary ~.,data =Diabetes3)
+#varImpPlot(Random_Forest3, main = "Imoprtant factors affecting Diabetes")
 
 #Partial Dependence Plots using the Boost model:
 Boost=gbm(Diabetes_binary ~., data = diabetes, interaction.depth=4, n.trees=500, shrinkage=.05)
@@ -794,7 +829,7 @@ knitr::include_graphics("./fig/Income.png")
 knitr::include_graphics("./fig/Education.png")
 ```
 
-## 5-4. Support-Confidence plot
+## 5-6. Support-Confidence plot
 
 The support-confidence plot at the section 3-4 is as follow: 
 

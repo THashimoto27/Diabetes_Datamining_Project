@@ -314,17 +314,8 @@ true positive rate (TPR) is 0.79 and 0.768, each false positive rate
 and each false discovery rate (FDR) is 0.263 (=Precision: 73.7%) and
 0.253 (=Precision: 74.7%).
 
-Besides, the ROC curves of the linear probability model and logit model
-is in the following.
-
-<img src="./fig/roc.png" alt="ROC Curves between the logit and the probit" width="50%" height="50%" />
-<p class="caption">
-ROC Curves between the logit and the probit
-</p>
-
-The red line of this graph represents the best linear model and the blue
-line represents the logit model. These gaps are so little but the linear
-model is slightly better than that the logit model.
+Besides, The ROC curves shows that the linear model is slightly better
+than that the logit model ([see Appendix](5-3.%20ROC%20curve)).
 
 Accordingly, from the result, the linear model can be better than the
 logit model because the linear model has the lowest rmse and the ability
@@ -475,8 +466,8 @@ except for the dummy variables, BMI looks like largely affect the risk
 score as well as the above linear model. Note that coefficients of
 HighBP is still positive and large.
 
-So, from these result, the crucial variables to increase the risk score
-of diabetes is **High blood pressure” and “General health”**. And, the
+From these result, the crucial variables to increase the risk score of
+diabetes is **High blood pressure” and “General health”**. And, the
 variable that does not related to the diabetes or make risk score
 decrease is **“Heavy alcohol consumption”**. Besides, please be careful
 about **“BMI”** that increases risk scores as your BMI increase.
@@ -501,6 +492,11 @@ that the top was biased to slightly the right. Also, the logit model is
 a distribution with a dent in the middle. The bottom of the graph shows
 the relationship between two ways to score, and these correlation is
 0.975.
+
+Besides, we also saw the distribution of risk scores by thresholds and
+we got the overall results of the linear and the logit looked the same.
+([see
+Appendix](##%205-4.%20The%20ratio%20of%20people%20who%20got%20risk%20scores%20by%20each%20thresholds))
 
 From these result, whichever ways to score we select, almost scores are
 the same as another way. So, we can focus on the shape of the
@@ -690,11 +686,74 @@ follow:
 Also, the summary of the logit model is as follow:
 <img src="./fig/reg2.png" width="95%" height="95%" style="display: block; margin: auto;" />
 
-## 5-3.
+## 5-3. ROC curve
+
+Besides, the ROC curves of the linear probability model and logit model
+is in the following.
+
+<img src="./fig/roc.png" alt="ROC Curves between the logit and the probit" width="50%" height="50%" />
+<p class="caption">
+ROC Curves between the logit and the probit
+</p>
+
+The red line of this graph represents the best linear model and the blue
+line represents the logit model. These gaps are so little but the linear
+model is slightly better than that the logit model.
+
+## 5-4. Ratio of people who got risk scores by each thresholds
+
+<table>
+<caption>The ratio of people who got risk scores by each thresholds (%:
+all observations n= 70692)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">linear</th>
+<th style="text-align: right;">logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">low</td>
+<td style="text-align: right;">22.3</td>
+<td style="text-align: right;">25.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">moderate</td>
+<td style="text-align: right;">23.4</td>
+<td style="text-align: right;">21.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">high</td>
+<td style="text-align: right;">30.2</td>
+<td style="text-align: right;">25.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">veryhigh</td>
+<td style="text-align: right;">20.1</td>
+<td style="text-align: right;">20.9</td>
+</tr>
+</tbody>
+</table>
+
+The ratio of people who got risk scores by each thresholds (%: all
+observations n= 70692)
+
+We saw the distribution of risk scores by thresholds which means low
+score is below 25 points, moderate score is over 26 and below 50 points,
+high score is over 51 and below 75 points, and very high score is over
+76 points. The above table shows the ratio of the number of people who
+get each score overall observations. The ratio of people who got high
+scores is 30.2% in the linear model and 25.9% in the logit model, which
+looks like a large differenece. Similarly, The ratio of people who got
+low scores is 22.3% in the linear model and 25.6% in the logit model.
+However, the overall results seem us the same.
+
+## 5-5.
 
 <img src="./fig/diabetes1_if.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/diabetes2_if.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/GenHlth.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/HighBP.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/BMI.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/HighChol.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Age.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Income.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Education.png" width="45%" height="45%" style="display: block; margin: auto;" />
 
-## 5-4. Support-Confidence plot
+## 5-6. Support-Confidence plot
 
 The support-confidence plot at the section 3-4 is as follow:
 
