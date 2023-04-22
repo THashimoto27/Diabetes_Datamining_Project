@@ -246,6 +246,7 @@ all variables), and KNN regression model. These rmse of three model is
 as follow:
 
 <table>
+<caption>Comparison of LPMs and Knn model</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">RMSE_stndard</th>
@@ -262,6 +263,8 @@ as follow:
 </tbody>
 </table>
 
+Comparison of LPMs and Knn model
+
 where the optimal k is 2. From the above the result, it is safe to say
 the stepwise model is the best predictive model so far.
 
@@ -270,7 +273,7 @@ the stepwise model is the best predictive model so far.
 Next to find better predictive model,
 
 <table>
-<caption>the output of LPM and Logit</caption>
+<caption>Comparison of LPM and Logit</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -302,7 +305,7 @@ Next to find better predictive model,
 </tbody>
 </table>
 
-the output of LPM and Logit
+Comparison of LPM and Logit
 
 From these tables, the accuracy rate of the linear model is
 0.753(=75.3%) and that of the logit model is 0.748(=74.8%). Also, each
@@ -314,7 +317,11 @@ and each false discovery rate (FDR) is 0.263 (=Precision: 73.7%) and
 Besides, the ROC curves of the linear probability model and logit model
 is in the following.
 
-<img src="./fig/roc.png" width="50%" height="50%" style="display: block; margin: auto;" />
+<img src="./fig/roc.png" alt="ROC Curves between the logit and the probit" width="50%" height="50%" />
+<p class="caption">
+ROC Curves between the logit and the probit
+</p>
+
 The red line of this graph represents the best linear model and the blue
 line represents the logit model. These gaps are so little but the linear
 model is slightly better than that the logit model.
@@ -334,6 +341,7 @@ coefficients, the direct marginal effects on the risk score are as
 follow:
 
 <table>
+<caption>Coefficients(Weights) of LPM and Logit</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -450,6 +458,8 @@ follow:
 </tbody>
 </table>
 
+Coefficients(Weights) of LPM and Logit
+
 where these coefficients are the result of the estimation with scaled
 data (if you want to see all coefficients, see [the
 appendix](##%205-2.%20Stewise%20selection%20model)). So, in the binary
@@ -478,7 +488,11 @@ Logit for the view of scoring. So, we shows the shape of the
 distribution of the predicted risk scores from the actual data as
 follow:
 
-<img src="./fig/lpm_score.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/logit_score.png" width="45%" height="45%" style="display: block; margin: auto;" />
+<img src="./fig/lpm_score.png" alt="Distribution of scores by the linear and the logit" width="45%" height="45%" /><img src="./fig/logit_score.png" alt="Distribution of scores by the linear and the logit" width="45%" height="45%" />
+<p class="caption">
+Distribution of scores by the linear and the logit
+</p>
+
 where the correlation between predicted output in the linear model and
 the logit model is 0.975.
 
@@ -507,8 +521,14 @@ To identify the critical factors causing Diabetes, we used a correlation
 matrix, PCA analysis & variable importance plot (using a random forest
 model). The correlation matrix shows that there is a high positive
 correlation between Diabetes & High BP, High cholesterol, age, Heart
-disease, BMI & general health. We have also identified 3 latent groups
-of variables:
+disease, BMI & general health.
+
+<img src="./fig/corr.png" alt="Correlation matrix in data" width="90%" height="90%" />
+<p class="caption">
+Correlation matrix in data
+</p>
+
+We have also identified 3 latent groups of variables:
 
 The most important factors according to the PCA analysis are General
 Health, HighBP, HeartDiseaseorAttack, HighChol , BMI, Mental Health &
@@ -547,11 +567,14 @@ rates his/her general health to be fair to poor.
 
 At first, as we mentioned at Model part, we used apriori function in R
 with support 0.02 and confidence 0.01 (see [Appendix to look at the
-support-confidence](##%205-3.%20Support-Confidence%20plot)). And with
+support-confidence](##%205-4.%20Support-Confidence%20plot)). And with
 lift &gt;4, we created data to show the node graph. the following graph
 is enlarged it around the word “diabetes”:
 
-<img src="./fig/token_node2.png" width="80%" height="80%" style="display: block; margin: auto;" />
+<img src="./fig/token_node2.png" alt="Nodes and words around the diabetes word" width="80%" height="80%" />
+<p class="caption">
+Nodes and words around the diabetes word
+</p>
 
 From this graph, we can get some factors which are not included in our
 data are related to diabetes like these:
@@ -668,6 +691,8 @@ Also, the summary of the logit model is as follow:
 <img src="./fig/reg2.png" width="95%" height="95%" style="display: block; margin: auto;" />
 
 ## 5-3.
+
+<img src="./fig/diabetes1_if.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/diabetes2_if.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/GenHlth.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/HighBP.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/BMI.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/HighChol.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Age.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Income.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Education.png" width="45%" height="45%" style="display: block; margin: auto;" />
 
 ## 5-4. Support-Confidence plot
 
