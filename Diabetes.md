@@ -2,10 +2,11 @@
 
 ## 1-1. Background
 
-Diabetes is a prevalent chronic disease in the US. It is characterized
-by the inability to regulate glucose levels in the blood due to
-insufficient insulin production or ineffective use of insulin. High
-blood sugar levels can lead to complications such as heart disease,
+Diabetes is a prevalent chronic disease in the US, affecting millions of
+people and placing a significant financial burden on the economy. It is
+characterized by the inability to regulate glucose levels in the blood
+due to insufficient insulin production or ineffective use of insulin.
+High blood sugar levels can lead to complications such as heart disease,
 vision loss, lower-limb amputation, and kidney disease. While there is
 no cure for diabetes, lifestyle changes and medical treatments can help
 mitigate its harms. Early diagnosis is important, and predictive models
@@ -24,10 +25,13 @@ Here are some statistics on diabetes in the USA:<br>
 -   About 90-95% of cases are type II diabetes.<br>
 
 -   Another 88 million American adults, or 34.5% of the population, have
-    prediabetes.<br>
+    prediabetes.
 
 -   1 in 5 people with diabetes, and 8 in 10 people with prediabetes,
     are unaware of their condition.<br>
+
+-   Diabetes is also more common among people with lower income and
+    education levels.<br>
 
 -   Diabetes is the seventh leading cause of death in the United
     States.<br>
@@ -35,26 +39,27 @@ Here are some statistics on diabetes in the USA:<br>
 -   In 2017, the total cost of diagnosed diabetes in the United States
     was estimated to be $327 billion.<br>
 
-So given these statistics, we know that it is important to identify the
-key factors that lead to diabetes. If we can develop a predictive model
-that gives an idea how we can predict the chance of developing diabetes,
-we can take necessary actions to prevent diabetes. The finding will be
-quite useful for patients, healthcare providers or physicians as this
-disease is not curable. So people can take necessary actions accordingly
-to prevent this chronic disease.
+So given this statistics, we know that it is important to identify the
+key factors that lead to diabetes. Also if we can develop a predictive
+model that gives an idea how we can predict the chance of developing
+diabetes, we can take necessary actions to prevent diabetes as this
+disease is not curable.
 
 ## 1-2. Our Objectives and findings
 
-**The objectives of this paper are as follow:**
+Our questions that we would like to answer and main findings in this
+paper are as follow:
+
+**\[Objectives\]**
 
 -   Can we develop a predictive model of diabetes?<br>
 
 -   Can we assign a risk score for an individual given we know his/her
-    individual biological & demographic characteristics?<br>
+    individual biological & behavioral characteristics? <br>
 
 -   What risk factors are most predictive of diabetes risk?<br>
 
-**Our findings will be useful for the following stakeholders:**
+**\[Findings\]**
 
 -   Patients: Diabetes models can help patients understand their risk of
     developing the disease, make informed lifestyle choices, and take
@@ -74,64 +79,85 @@ to prevent this chronic disease.
     gain insights into the underlying causes of the disease, identify
     new risk factors, and develop more effective treatments.<br>
 
+To achieve the objective of our project, we are expecting to do the
+following:<br>
+
+**1. Building Best predictive model:** Using different predictive models
+such as linear regression, KNN regression, random forest, logistic
+regression, decision tree models, we shall come up with predicting
+diabetes.<br>
+
+**2. Develop a risk score:** based on the best predictive model we will
+develop a risk score & based on the risk score we can give early signal
+whether an individual is within the risk zone of developing
+diabetes.<br>
+
+**3. Identifying importance of different factors:** We can use PCA,
+partial dependence plot etc to identify the marginal effects of
+different variables on diabetes.<br>
+
+**4. Need more data to estimate our model preciously:** Our data are
+always limited, and so we cannot build a perfect predictive model. Then,
+we use the “Natural Language Processing” and “Association rules” to
+identify factors that are much related to “diabetes” because if we can
+get additionally data of them, we can estimate our model more
+preciously.<br>
+
 # 2. Methods: Data and Model
 
 ## 2-1. Data
 
 **Nature of Data:** Dataset includes 70,692 observations of US
-individuals. [These data were collected by BEHAVIORAL RISK FACTOR
-SURVEILLANCE SYSTEM in assistance with Chronic Disease
+individuals 50% of whom are diabetic patients (others are not). [These
+data were collected by BEHAVIORAL RISK FACTOR SURVEILLANCE SYSTEM in
+assistance with Chronic Disease
 Center](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset).
-There are total 21 variables. There are a total 21 variables. The
-variables are defined as follows:
+There are total 21 variables. The variables are defined as follows:
+Diabetes\_binary: A binary variable indicating presence of diabetes by 1
+& absence by 0.
 
-*Diabetes\_binary*: A binary variable indicating presence of diabetes by
-1 & absence by 0.
-
-*HighBP,HighChol*(Have you smoked at least 100 cigarettes in your entire
-life? 0 = no 1 = yes), **Stroke, HeartDisease PhysActiv, Fruits,
-Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk** (Any
-difficulty on walking, 1 indicate presence of difficulty) - all are
+*HighBP,HighChol*,Smoker (Have you smoked at least 100 cigarettes in
+your entire life? 0 = no 1 = yes), Stroke, HeartDisease PhysActiv,
+Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk
+(Any difficulty on walking, 1 indicate presence of difficulty) - all are
 binary variables where 1 indicate presence of the factor and 0 indicates
 absence. Cholcheck is also a binary variable where 0 = no cholesterol
 check in 5 years 1 = yes cholesterol check in 5 years
 
-*BMI:* Body Mass index is a measure of body fat based on height and
-weight that applies to adult men and women. Here, BMI had a minimum
-value of 12 & maximum value of 98. BMI more than 25 is considered obese.
-
-**General Health:** A measure of general health situation in which
-1=Excellent, 2=Very Good, 3=Good, 4=Fair, 5=Poor.
+*BMI :* Body Mass index is a measure of body fat based on height and
+weight that applies to adult men and women. Here, BMI had minimum value
+of 12 & maximum value of 98. BMI more than 25 is considered obese.
+General Health: A measure of general health situation, 1=Excellent,
+2=Very Good, 3=Good, 4=Fair, 5=Poor.
 
 *Mental Health:* During the past 30 days, for about how many days did
 poor physical or mental health keep an individual from doing your usual
 activities, such as self-care, work, or recreation? A value from 0 to 30
-where 0 indicates best mental health & 30 indicates worst.
+where 0 indicates bests mental health & 30 indicates worst.
 
 *Physical Health:* for how many days during the past 30 days was the
-individual’s physical health not good? Responses range from 0 to 30
-where higher the value worse the physical health.
+individual’s physical health not good? A value from 0 to 30 where higher
+the value worse the physical health.
 
 **Demographic Variables:**
 
 *Sex:* patient’s gender (1: male; 0: female).
 
-*Age:* 13-level age category ,where 1 = 18-24, 2=25-29, 3= 30-34,
-4=35-39, 5=40-44, 6=45-49, 7=50-54, 8=55-59, 9=60-64, 10=65-69,
-11=70-74, 12 = 75-79 & 13 = 80 or older etc.
+*Age:* 13-level age category ,where 1 = 18-24 9 = 60-64 13 = 80 or older
+etc.
 
-*Education:* A value that ranges from 1 to 6. Higher value indicates
-higher level of education. 1= Never attended school or only
-kindergarten, 2 = Grades 1 through 8 (Elementary) 3 =Grades 9 through 11
-(Some high school), 4= Grade 12 or GED (High school graduate), 5=
-College 1 year to 3 years (Some college or technical school), 6= College
-4 years or more (College graduate)
+*Education:* A value that ranges from 1 to 6. Higher the value higher
+the level of education. 1= Never attended school or only kindergarten, 2
+= Grades 1 through 8 (Elementary) 3 =Grades 9 through 11 (Some high
+school), 4= Grade 12 or GED (High school graduate), 5= College 1 year to
+3 years (Some college or technical school), 6= College 4 years or more
+(College graduate)
 
 *Income:* Indicates level of annual income for the households where 1=
-income less than $10000, 2= $ 10,000 to less than $15,000, 3= $15,000 to
+income less than $10000, 2= $10,000 to less than $15,000, 3= $15,000 to
 less than $20,000, 4= $20,000 to less than $25,000, 5= $25,000 to less
 than $35,000, 6= $35,000 to less than $50,000, 7= $50,000 to less than
-$75,000, 8= $75,000 or more
+$75,000, 8= 75,000 or more
 
 [please see the specific characteristic of the
 data](##%205-1.%20Charactersitcs%20of%20Data)
@@ -140,22 +166,15 @@ data](##%205-1.%20Charactersitcs%20of%20Data)
 
 ### 2-2-1. Best Predictive Model
 
-Using different predictive models such as linear regression, KNN
-regression & logistic regression, we will develop a model which is the
-best for predicting diabetes.
-
 ### 2-2-2. Scoring
 
-Based on the best predictive model, we will develop a risk score & based
-on the risk score we can give an early signal about the degree of risk
-exposure a person may have.
-
-We have followed the following steps:
+After getting the best predictive model, we try to give individuals the
+risk score for the diabetes. The way to do is as follow:
 
 1.  Use the estimated coefficients
 
-we used the estimated coefficients the detail (see [the Appendix
-5-2.](##%205-2.%20Stepwise%20selection%20model)) to estimate the
+we used the estimated coefficients (see [the detail in
+Appendix](5-2.%20Stewise%20selection%20model)) to estimate the
 probability of diabetes for individuals with a linear probability model
 and the logit model.
 $$
@@ -164,7 +183,7 @@ $$
 \end{aligned}
 $$
 
-1.  100 scaled (for only the Linear Probability model)
+1.  100 scaling (only LP&lt;)
 
 To show *ŷ* as a score in the linear probability model, we scaled it
 into the format 0-100 points.
@@ -175,25 +194,18 @@ score&= 100\hat{y}\\\\ where\\ &if\\ \hat{y}&gt;100,\\ then\\ score=100\\\\
 \end{aligned}
 $$
 
-1.  Risk score:
+### 2-2-3. PCA
 
-We defined and classified the risk score for individuals: 0-25=”Low
-Risk”, 26-50=”Moderate Risk”, 51-75= “High Risk”, 76-100=”Very High
-Risk”
-
-### 2-2-3. Identifying critical factors responsible for diabetes
-
-We have used correlation matrix, PCA, partial dependence plot etc to
-identify the factors responsible for diabetes.
+(Please insert here)
 
 ### 2-2-4. Factors related to “diabetes”
 
-We used the Natural Language Processing to identify factors that are
-much related to “diabetes”. This is because if we can get additionally
-data of them, we can estimate our model more preciously.
+In this paper, we use the Natural Language Processing to identify
+factors that are much related to “diabetes” because if we can get
+additionally data of them, we can estimate our model more preciously.
 
 To do that, at first, we collected data of the abstract of the recent
-academic paper with the keyword “diabetes” from the
+academic paper with keyword “diabetes” from the
 [Pubmed](https://pubmed.ncbi.nlm.nih.gov/). Specifically, we used the
 application of [Publish or Perish
 8](https://harzing.com/resources/publish-or-perish/), put “diabetes”
@@ -202,39 +214,39 @@ into the “Keywords” and get information of the 1000 medical papers with
 
 Next, we excluded blank data and stopwords of “stopwords” library, and
 tokenized their abstracts using “tokenizers” library. So there were 950
-papers.
+papers’ data.
 
-After that, we applied “apriori” function for data that we got with
-support =.02, confidence=.001, and extract some data from them with
-lift&gt;4. Then we showed the node graph that told us words that related
-to “diabetes” word with [Gephi](https://gephi.org/).
+After that, we apply apriori function for data that we got with support
+=.02, confidence=.001, and extract some data from them with lift&gt;4.
+Then we showed the node graph that told us words that related to
+“diabetes” word with [Gephi](https://gephi.org/).
 
-Finally, from the node graph, we got factors that are related to
-“diabetes”, and identified the additional factors while comparing them
-to our current factors of data.
+Finally, from the node graph, we got factors that related to “diabetes”,
+and identified factors that we should collect additionally while
+comparing to our current factors of data.
 
-Note: We did not use “Google Scholar” to collect in Publish or Perish as
-it did not give us all the abstract data of each paper. Also, Publish or
-Perish can only get up to 1000 data.
+Note: the reason we did not use “Google scholar” to collect in Publish
+or Perish is it did not give us all abstract data of each papers.<br>
+Also, Publish or Perish can only get up to 1000 data.
 
 # 3. Results
 
-## 3-1. Best Prediction Model for Diabetes
+## 3-1. Best Diabetes Prediction
 
-### 3-1-1. Linear model regression and KNN regression
+### 3-1-1. Linear model regression
 
 First, to find the best combination of variables for the model, we used
-stepwise selection. We got the best model based on AIC criteria, which
-is so complex that we have shown it in [the Appendix
-5-2.](##%205-2.%20Stepwise%20selection%20model).
+stepwise selection. And we got the best model from the point of AIC
+view, which is so complex, and so we shows it in the
+[Appendix](##%205-2.%20Stewise%20selection%20model).
 
-We also compared three models with the cross-Validation namely - the
-stepwise linear model, the basic model (which simply includes all
-variables), and the KNN regression model. Rmse of three models are as
-given below:
+Also, we compared three model with the cross-Validation, the linear
+model of this stepwised model and the basic model (which simply includes
+all variables), and KNN regression model. These rmse of three model is
+as follow:
 
 <table>
-<caption>Comparison of LPM and KNN model</caption>
+<caption>Comparison of LPMs and Knn model</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">RMSE_stndard</th>
@@ -251,14 +263,14 @@ given below:
 </tbody>
 </table>
 
-Comparison of LPM and KNN model
+Comparison of LPMs and Knn model
 
-where the optimal k is 2. From the above result, it is safe to say the
-stepwise model is the best predictive model so far.
+where the optimal k is 2. From the above the result, it is safe to say
+the stepwise model is the best predictive model so far.
 
 ### 3-1-2. Logit model comparison
 
-To find better predictive model, we compared the LPM & Logit models:
+Next to find better predictive model,
 
 <table>
 <caption>Comparison of LPM and Logit</caption>
@@ -303,24 +315,24 @@ and each false discovery rate (FDR) is 0.263 (=Precision: 73.7%) and
 0.253 (=Precision: 74.7%).
 
 Besides, The ROC curves shows that the linear model is slightly better
-than that the logit model (see [the Appendix
-5-3.](##%205-3.%20ROC%20curves)).
+than that the logit model ([see Appendix](5-3.%20ROC%20curve)).
 
-From the result, we see that the linear model is better than the logit
-model because the linear model has the lowest RMSE and the greater
-ability to predict diabetes. However, we need to be careful because
-sometimes the logit model might be better.
+Accordingly, from the result, the linear model can be better than the
+logit model because the linear model has the lowest rmse and the ability
+of the prediction for diabetes. However, we need to careful about what
+sometimes the logit model will be better.
 
 ## 3-2. Scoring
 
 ### 3-2-1. What the crucial variables are to directly affect on the risk score?
 
-From the linear probability model, we retrieve the coefficients as the
-weights of the risk score. Based on the coefficients, the direct
-marginal effects on the risk score are as follow:
+From the linear probability model, the weights to get individual risk
+scores in the data is the coefficient of the estimation. In the
+coefficients, the direct marginal effects on the risk score are as
+follow:
 
 <table>
-<caption>Coefficients(Weights) of LPM and Logit model</caption>
+<caption>Coefficients(Weights) of LPM and Logit</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -437,73 +449,75 @@ marginal effects on the risk score are as follow:
 </tbody>
 </table>
 
-Coefficients(Weights) of LPM and Logit model
+Coefficients(Weights) of LPM and Logit
 
-Here, these coefficients are the result of the estimation with scaled
-data (if you want to see all coefficients, see [the Appendix
-5-2.](##%205-2.%20Stepwise%20selection%20model)). Among the binary
-variables, the highest weight is assigned to “HighBP”(high blood
-pressure) and the lowest one is assigned to “HvyAlcoholConsump” (heavy
-alcohol consumption). Outside the dummy variables, BMI seems to largely
-affect the risk score.
+where these coefficients are the result of the estimation with scaled
+data (if you want to see all coefficients, see [the
+appendix](##%205-2.%20Stewise%20selection%20model)). So, in the binary
+data, the most highest coefficient in the above is “HighBP”(high blood
+pressure) and the lowest one is “HvyAlcoholConsump” (heavy alcohol
+consumption). Also, except for the dummy variables, BMI looks like
+largely affect the risk score.
 
-In the logit model, among the binary variables, “GenHlth”(general
-health) has the highest weight/coefficient and “HvyAlcoholConsump”
-(heavy alcohol consumption) has the lowest weight/coefficient. In
-addition to that, BMI seems to affect the risk score largely in logit
-model as well. We also note that the coefficient of HighBP is still
-positive and large. In both models, Physical activities, diets rich in
-fruits & vegetables have negative weights as these variables reduce the
-risk of diabetes.
+Also, we also shows the case of the logit model. In the binary data, the
+most highest coefficient in the above is “GenHlth”(general health) and
+the lowest one is “HvyAlcoholConsump” (heavy alcohol consumption). Also,
+except for the dummy variables, BMI looks like largely affect the risk
+score as well as the above linear model. Note that coefficients of
+HighBP is still positive and large.
 
-From the above result, the crucial variables to increase the risk score
-of diabetes from the viewpoint of the linear model and logit model is
-**High blood pressure” and “General health”**. And, the variable that
-does not related to the diabetes or make risk score decrease is **“Heavy
-alcohol consumption”**. Besides, please be careful about **“BMI”** that
-increases risk scores as your BMI increase.
-
-Note that we shows the ratio of the number of people by each scoring
-thresholds in [the Appendix
-5-4.](##%205-4.%20Ratio%20of%20people%20who%20got%20risk%20scores%20by%20each%20thresholds)
+From these result, the crucial variables to increase the risk score of
+diabetes is **High blood pressure” and “General health”**. And, the
+variable that does not related to the diabetes or make risk score
+decrease is **“Heavy alcohol consumption”**. Besides, please be careful
+about **“BMI”** that increases risk scores as your BMI increase.
 
 ### 3-2-2. Which risk socre model is better between LPM and Logit?
 
-Next we will discuss, between LPM and Logit , which risk score model is
-better . Here, we have shown the distribution of the predicted risk
-scores from the actual data :
+Next we try to discuss which risk score model is better between LPM and
+Logit for the view of scoring. So, we shows the shape of the
+distribution of the predicted risk scores from the actual data as
+follow:
 
 <img src="./fig/lpm_score.png" alt="Distribution of scores by the linear and the logit" width="45%" height="45%" /><img src="./fig/logit_score.png" alt="Distribution of scores by the linear and the logit" width="45%" height="45%" />
 <p class="caption">
 Distribution of scores by the linear and the logit
 </p>
 
-The correlation between predicted output in the linear model and the
-logit model is 0.975. From the graphs, we observe that the linear model
-roughly follows a normal distribution while top scores are slightly
-tilted to the right. Also, the logit model is a distribution with a dent
-in the middle. The correlation of the scores of these two predictive
-models is 0.975.
+where the correlation between predicted output in the linear model and
+the logit model is 0.975.
 
-From these results we observe that the predicted scores under the two
-models are almost the same. So, we can focus on the shape of the
-distribution for scores. We think that a scoring distribution will be
-desirable to be normal because if there is the true score for diabetes,
-the distributed independent samples will be closer to from the Central
-Limit Theorem as the sample will be larger. Also, if we assume this
-distribution as a normal, we can easily use this score for other
-purposes.
+From the above graphs, the linear model is like the normal distribution
+that the top was biased to slightly the right. Also, the logit model is
+a distribution with a dent in the middle. The bottom of the graph shows
+the relationship between two ways to score, and these correlation is
+0.975.
 
-We have already found that the linear probability model is a better
-scoring model than logit.
+Besides, we also saw the distribution of risk scores by thresholds and
+we got the overall results of the linear and the logit looked the same.
+([see
+Appendix](##%205-4.%20The%20ratio%20of%20people%20who%20got%20risk%20scores%20by%20each%20thresholds))
+
+From these result, whichever ways to score we select, almost scores are
+the same as another way. So, we can focus on the shape of the
+distribution for scores. In general, a scoring distribution will be
+normal hopefully because we have already had some uncertain conditions
+for this prediction, such as unknown factors or something like this.
+Also, the result of the logit model can distinguish diabetes or not as
+possibly, and many people gives scores of below 50 points compared to
+linear model. In practice, the scoring has a function of warning and so,
+we think many low score should not be given.
+
+Accordingly, we think the linear probability model is better scoring
+model than logit.
 
 ## 3-3. Identifying factors affecting Diabetes:
 
 To identify the critical factors causing Diabetes, we used a correlation
 matrix, PCA analysis & variable importance plot (using a random forest
 model). The correlation matrix shows that there is a high positive
-correlation between **Diabetes & High BP, High cholesterol, age, Heart
-disease/attack, & stroke**.
+correlation between Diabetes & High BP, High cholesterol, age, Heart
+disease, BMI & general health.
 
 <img src="./fig/corr.png" alt="Correlation matrix in data" width="90%" height="90%" />
 <p class="caption">
@@ -516,48 +530,42 @@ The most important factors according to the PCA analysis are General
 Health, HighBP, HeartDiseaseorAttack, HighChol , BMI, Mental Health &
 Age.
 
-Since the sample size is large, we ran 2 random subsample to evaluate
+Since the sample size is large, we ran 3 random sub-sample to evaluate
 the random forest model & identify the most important variables using
-the ‘varImp plot’ (see [the Appendix
-5-5.](##%205-5.%20Variable%20Importance%20Plot%20based%20on%20Random%20Forest%20Model%20&%20Partial%20Dependence%20Plot%20based%20on%20Boost%20Model).
-The 2 different random forests gave us roughly similar important
-variables affecting diabetes. The variables based on importance are
-**BMI, High BP, Age, General Health, Income, Education, Physical
-Activity, Mental Health, and High Cholesterol.**
+the ‘varImp plot’. The 3 different random forests gave us roughly
+similar important variables affecting diabetes. The variables based on
+importance are BMI, High BP, Age, General Health, Income, Education,
+Physical Activity, Mental Health, and High Cholesterol.
 
 So, Using the correlation matrix, PCA analysis & the variable importance
-plot, we find that the most common factors affecting diabetes are:
-**BMI, Age, General Health, High BP, Income level, Education level,High
-cholesterol & Heart Disease.**
+plot, we find that the most common factors affecting diabetes are: BMI,
+Age, General Health, High BP, Income level, Education level, Physical &
+Mental Health, presence of heart disease.
 
 In order to identify how these variables might affect the probability of
 developing diabetes, we ran a gradient boost model & found some
-interesting insights. For instance, the **partial dependence plot** (see
-[the Appendix
-5-5.](##%205-5.%20Variable%20Importance%20Plot%20based%20on%20Random%20Forest%20Model%20&%20Partial%20Dependence%20Plot%20based%20on%20Boost%20Model))
-shows that as the **education level** goes up, the probability of
-diabetes goes down. Probably educated people live a more disciplined
-life & can take better care of their diet and health. In fact, diabetes
-is prevalent among less educated people. The probability of diabetes
-goes up after **age** 55. The plot also suggests that A person with
-**high cholesterol** will have a 20% greater chance of developing
-diabetes. The higher the BMI, the higher the probability of catching
-diabetes. The prevalence of diabetes also goes down as the **level of
-income** goes up. As people earn a higher level of income, they can
-spend more on healthcare, can eat a healthy diet & live a better
-lifestyle. It is also believed that diabetes is a disease closely
-related to one’s lifestyle. On the other hand, the probability of
-occurrence of diabetes goes up as a person rates his/her **general
-health** fair or poor.
+interesting insights. For instance, the partial dependence plot shows
+that as the education level goes up, the probability of diabetes goes
+down. Probably educated people live a more disciplined life & can take
+better care of their diet and health. In fact, diabetes is prevalent
+among less educated people. The probability of diabetes goes up after
+age 55. The plot also suggests that A person will high cholesterol will
+have a 20% greater chance of developing diabetes. The higher the BMI,
+the higher the probability of catching diabetes. The prevalence of
+diabetes also goes down as the level of income goes up. As people earn a
+higher level of income, they can spend more on healthcare, can eat a
+healthy diet & live a better lifestyle. It is also believed that
+diabetes is a disease closely related to one’s lifestyle. On the other
+hand, the probability of occurrence of diabetes goes up as a person
+rates his/her general health to be fair to poor.
 
 ## 3-4. What kind of variables is more helpful to refine our model?
 
-At first, as mentioned in the Model part, we used apriori function in R
-with support 0.02 and confidence 0.01 (see [the Appendix
-5-6.](##%205-6.%20Support-Confidence%20plot)) to look at the
-support-confidence. And with lift &gt;4, we created data to show the
-node graph. the following graph is enlarged it around the word
-“diabetes”:
+At first, as we mentioned at Model part, we used apriori function in R
+with support 0.02 and confidence 0.01 (see [Appendix to look at the
+support-confidence](##%205-4.%20Support-Confidence%20plot)). And with
+lift &gt;4, we created data to show the node graph. the following graph
+is enlarged it around the word “diabetes”:
 
 <img src="./fig/token_node2.png" alt="Nodes and words around the diabetes word" width="80%" height="80%" />
 <p class="caption">
@@ -581,86 +589,93 @@ data are related to diabetes like these:
 
 -   pregnancy<br>
 
-Therefore, if we want to refine our model in future, it is better to
-include these additional factors.
+Therefore, if we want to refine our model much more, it is better to get
+data included these factors additionally.
 
 # 4. Conclusion
 
-In this paper, we wanted to build a predictive model of diabetes. We
-used stepwise selection to find the best linear probability model. From
-the result, we got the model with 92 variables (21 variables and 71
-cross-term variables), excluding the intercept terms, Also, we compared
-it to its KNN version’s model with Cross Validation. Then, we found that
-this linear model is better than its KNN model from the view of RMSE.
+Diabetes is a prevalent chronic disease in the US, affecting millions of
+people and placing a significant financial burden on the economy.
+Diabetes is a prevalent chronic disease in the US, affecting millions of
+people and placing a significant financial burden on the economy. So in
+this paper, to contribute decreasing diabetes, we executed 4 analysis,
+(1) building the best predict diabetes model, (2) constructing the risk
+score for diabetes, **(3)–(Please insert here)–**, and (4) find other
+important factors that we have not yet got from academic paper.
 
-Then we used the linear probability model and the logit model with all
-variables data to construct the risk score for diabetes. The weight of
-the risk score is the coefficient of the linear probability model. Based
-on the risk score, we could identify whether someone has a low,
-moderate, high, or very high risk of developing diabetes. In this paper,
-we found that BMI, Age, General Health condition, High BP, Physical &
-Mental Health, presence of heart disease are the most critical factors
-that affect diabetes. Diabetes risk increases with age, high Blood
-Pressure & presence of heart disease. People with poor mental, physical
-& general health are more likely to develop the risk of diabetes.
-Finally, Poor & less educated people have a greater risk of suffering
-from diabetes.
+For the first analysis, we used the stepwise selection to find the best
+linear probability model. From the result, we got the model with 92
+variables (21 variables and 71 cross term variables), excluding the
+intercept terms, Also, we compared it to its KNN version’s model with
+Cross Validation. Then, we found this linear model is better than its
+KNN model from the view of RMSE.
 
-Finally, we used the abstracts of 1000 medical academic papers from
-Pubmed to find other factors to sophisticate our model. In this
-analysis, with Natural Language Processing, we applied apriori function
-in R and created the node graph. The words related to “diabetes”, which
-are most cited in academic papers, are ‘fasting’, ‘metabolic’, ‘blood
-glucose level’, ‘cholesterol level’, ‘stress’, ‘inflammatory’ and
-‘pregnancy’. We believe that in the future, we can collect these data to
-construct a better predictive diabetes model.
+For the second analysis, we used the best linear probability model and
+the logit model with all variables data to construct the risk score for
+diabetes. The weight of the risk score are the coefficient of the linear
+probability model. So, we could get the crucial variables to increase
+the risk score of diabetes is High blood pressure” and “General health”.
+And, the variable that does not related to the diabetes or make risk
+score decrease is “Heavy alcohol consumption”. Besides, please be
+careful about BMI that increases risk scores as your “BMI” increase.
+Also, from the shape of the distribution between the probability model
+and the logit one, we thought the linear probability model is better to
+construct the risk score because its shape was closer to the normal
+distribution derived by the Law of the Large Number.
+
+**For the third analysis, we** (please insert here)
+
+For the fourth analysis, we used abstracts of 1000 medical academic
+papers from Pubmed to find other factors to sophisticate our model. In
+this analysis, with Natural Language Processing, we apply apriori
+function in R and created the node graph. Then, we got factors that
+related to “diabetes”, and identified factors that we should collect
+additionally while comparing to our current factors of data. From the
+result, we found the words that are related to “diabetes” academic paper
+are fasting, metabolic, blood glucose level, cholesterol level, stress,
+inflammatory and pregnancy. We suggested to collect these kind of data
+to construct better predictive diabetes model.
 
 # 5. Appendix
 
 ## 5-1. Charactersitcs of Data
 
-In the following graphs, we show the histograms of population
-distribution with & without diabetes based on age, income, education &
-BMI.
+In the following, we shows histograms counting of some characteristics
+by diabetes status from the raw data.
 
 <img src="./fig/hist_age.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/hist_education.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/hist_income.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/hist_bmi.png" width="45%" height="45%" style="display: block; margin: auto;" />
 
-## 5-2. Stepwise selection model
+## 5-2. Stewise selection model
 
 The model that we got from the stepwise selection in 3-1 is as follow:
 
 $$
 \begin{aligned}
- Diabetes\_binary &= \beta\_0 + \beta \[ HighBP + HighChol + CholCheck \\\\
-     &+BMI + Smoker + Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies\\\\ 
-     &+HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth\\\\
-     &+MentHlth + PhysHlth + DiffWalk + Sex + Age + Education \\\\
-     &+Income + GenHlth\cdot DiffWalk + BMI\cdot Age + Sex\cdot Age + HighChol\cdot Age\\\\
-     &+GenHlth\cdot Income + BMI\cdot DiffWalk + HighBP\cdot HeartDiseaseorAttack \\\\
-     &+DiffWalk\cdot Age + GenHlth\cdot PhysHlth + HvyAlcoholConsump\cdot Age \\\\
-     &+CholCheck\cdot GenHlth + GenHlth\cdot Sex + HighChol\cdot HeartDiseaseorAttack \\\\ 
-     &+HighChol\cdot GenHlth + HeartDiseaseorAttack\cdot Age + Smoker\cdot GenHlth \\\\
-     &+HeartDiseaseorAttack\cdot GenHlth + Fruits\cdot Education \\\\
-     &+HeartDiseaseorAttack\cdot DiffWalk +HighBP\cdot HvyAlcoholConsump \\\\
-     &+HighChol\cdot Stroke + AnyHealthcare\cdot Education +HighBP\cdot CholCheck \\\\
-     &+Smoker\cdot Education + BMI\cdot HeartDiseaseorAttack + BMI\cdot Smoker \\\\
-     &+MentHlth\cdot DiffWalk + CholCheck\cdot BMI + HighChol\cdot BMI \\\\
-     &+HighBP\cdot HighChol + Fruits\cdot Age+ PhysActivity\cdot Fruits \\\\
-     &+Stroke\cdot GenHlth + HighBP\cdot Sex + Stroke\cdot Age  \\\\
-     &+HeartDiseaseorAttack\cdot NoDocbcCost + CholCheck\cdot Age \\\\
-     &+CholCheck\cdot HeartDiseaseorAttack + Fruits\cdot Sex\\\\
-     &+HvyAlcoholConsump\cdot GenHlth + HighChol\cdot MentHlth \\\\
-     &+HighBP\cdot AnyHealthcare + HighBP\cdot Education + Smoker\cdot Stroke \\\\
-     &+PhysActivity\cdot Age + PhysActivity\cdot Education + CholCheck\cdot AnyHealthcare \\\\
-     &+Veggies\cdot NoDocbcCost + BMI\cdot Sex + MentHlth\cdot Income \\\\
-     &+PhysHlth\cdot Income + NoDocbcCost\cdot DiffWalk + BMI\cdot MentHlth \\\\
-     &+HighChol\cdot Sex+ Sex\cdot Education + Smoker\cdot Sex + PhysHlth\cdot Age \\\\
-     &+MentHlth\cdot Age \\\\& + HeartDiseaseorAttack\cdot PhysHlth\\\\ 
-     &+PhysActivity\cdot PhysHlth + Stroke\cdot MentHlth + BMI\cdot NoDocbcCost \\\\
-     &+AnyHealthcare\cdot Age + BMI\cdot PhysActivity + Smoker\cdot DiffWalk + \\\\
-     &+Smoker\cdot Age + Smoker\cdot HvyAlcoholConsump \\\\& + AnyHealthcare\cdot DiffWalk +\\\\ 
-     &+AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack \\\\
-     &+PhysActivity\cdot Income\]+\varepsilon \\\\
+ Diabetes\_binary &= \beta\_0 + \beta \[ HighBP + HighChol + CholCheck +\\\BMI + Smoker + 
+     &Stroke + HeartDiseaseorAttack + PhysActivity + Fruits + Veggies \\\\+ 
+     &HvyAlcoholConsump + AnyHealthcare + NoDocbcCost + GenHlth + \\\\
+     &MentHlth + PhysHlth + DiffWalk + Sex + Age + Education + \\\\
+     &Income + GenHlth\cdot DiffWalk \\\\& + BMI\cdot Age + Sex\cdot Age + HighChol\cdot Age +\\\\ 
+   &GenHlth\cdot Income + BMI\cdot DiffWalk \\\\& + HighBP\cdot HeartDiseaseorAttack + \\\\
+     &DiffWalk\cdot Age + GenHlth\cdot PhysHlth \\\\& + HvyAlcoholConsump\cdot Age + \\\\
+     &CholCheck\cdot GenHlth + GenHlth\cdot Sex \\\\& + HighChol\cdot HeartDiseaseorAttack +\\\\ 
+     &HighChol\cdot GenHlth + HeartDiseaseorAttack\cdot Age + Smoker\cdot GenHlth + \\\\
+     &HeartDiseaseorAttack\cdot GenHlth \\\\& + Fruits\cdot Education + HeartDiseaseorAttack\cdot DiffWalk +\\\\&HighBP\cdot HvyAlcoholConsump \\\\& + HighChol\cdot Stroke + AnyHealthcare\cdot Education +\\\\ 
+    & HighBP\cdot CholCheck + Smoker\cdot Education + BMI\cdot HeartDiseaseorAttack + \\\\
+     &BMI\cdot Smoker + MentHlth\cdot DiffWalk \\\\& + CholCheck\cdot BMI + HighChol\cdot BMI + \\\\
+     &HighBP\cdot HighChol + Fruits\cdot Age \\\\& + PhysActivity\cdot Fruits + Stroke\cdot GenHlth + \\\\ 
+     &HighBP\cdot Sex + Stroke\cdot Age \\\\& + HeartDiseaseorAttack\cdot NoDocbcCost + \\\\
+     &CholCheck\cdot Age + CholCheck\cdot HeartDiseaseorAttack \\\\& + Fruits\cdot Sex + \\\\
+     &HvyAlcoholConsump\cdot GenHlth \\\\& + HighChol\cdot MentHlth \\\\& + HighBP\cdot AnyHealthcare + \\\\ 
+     &HighBP\cdot Education + Smoker\cdot Stroke \\\\& + PhysActivity\cdot Age + PhysActivity\cdot Education + \\\\
+     &CholCheck\cdot AnyHealthcare + Veggies\cdot NoDocbcCost + BMI\cdot Sex + \\\\
+     &MentHlth\cdot Income + PhysHlth\cdot Income + NoDocbcCost\cdot DiffWalk + \\\\
+     &BMI\cdot MentHlth + HighChol\cdot Sex \\\\& + Sex\cdot Education + Smoker\cdot Sex + \\\\
+     &PhysHlth\cdot Age + MentHlth\cdot Age \\\\& + HeartDiseaseorAttack\cdot PhysHlth + \\\\ 
+     &PhysActivity\cdot PhysHlth + Stroke\cdot MentHlth + BMI\cdot NoDocbcCost + \\\\
+     &AnyHealthcare\cdot Age + BMI\cdot PhysActivity + Smoker\cdot DiffWalk + \\\\
+     &Smoker\cdot Age + Smoker\cdot HvyAlcoholConsump \\\\& + AnyHealthcare\cdot DiffWalk +\\\\ 
+     &AnyHealthcare\cdot PhysHlth + Stroke\cdot HeartDiseaseorAttack + \\\\ &PhysActivity\cdot Income\]+\varepsilon \\\\
 \end{aligned}
 $$
 
@@ -671,7 +686,7 @@ follow:
 Also, the summary of the logit model is as follow:
 <img src="./fig/reg2.png" width="95%" height="95%" style="display: block; margin: auto;" />
 
-## 5-3. ROC curves
+## 5-3. ROC curve
 
 Besides, the ROC curves of the linear probability model and logit model
 is in the following.
@@ -724,17 +739,17 @@ all observations n= 70692)</caption>
 The ratio of people who got risk scores by each thresholds (%: all
 observations n= 70692)
 
-We saw the distribution of risk scores by thresholds which means the low
+We saw the distribution of risk scores by thresholds which means low
 score is below 25 points, moderate score is over 26 and below 50 points,
 high score is over 51 and below 75 points, and very high score is over
 76 points. The above table shows the ratio of the number of people who
 get each score overall observations. The ratio of people who got high
 scores is 30.2% in the linear model and 25.9% in the logit model, which
-looks like a large difference. Similarly, The ratio of people who got
+looks like a large differenece. Similarly, The ratio of people who got
 low scores is 22.3% in the linear model and 25.6% in the logit model.
 However, the overall results seem us the same.
 
-## 5-5. Variable Importance Plot based on Random Forest Model & Partial Dependence Plot based on Boost Model
+## 5-5.
 
 <img src="./fig/diabetes1_if.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/diabetes2_if.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/GenHlth.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/HighBP.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/BMI.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/HighChol.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Age.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Income.png" width="45%" height="45%" style="display: block; margin: auto;" /><img src="./fig/Education.png" width="45%" height="45%" style="display: block; margin: auto;" />
 
