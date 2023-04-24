@@ -119,7 +119,7 @@ So given these statistics, we know that it is important to identify the key fact
 
 ## 2-1. Data
 
-**Nature of Data:** 50% of them had diabetes & the rest did not. [These data were collected by BEHAVIORAL RISK FACTOR SURVEILLANCE SYSTEM in assistance with Chronic Disease Center](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset). There are total 21 variables. There are a total 21 variables. The variables are defined as follows:
+**Nature of Data:** Dataset includes 70,692 observations of US individuals. 50% of them had diabetes & the rest did not. [These data were collected by BEHAVIORAL RISK FACTOR SURVEILLANCE SYSTEM in assistance with Chronic Disease Center](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset). There are total 21 variables. There are a total 21 variables. The variables are defined as follows:
 
 *Diabetes_binary*: A binary variable indicating presence of diabetes by 1 & absence by 0.
 
