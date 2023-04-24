@@ -123,7 +123,7 @@ So given these statistics, we know that it is important to identify the key fact
 
 *Diabetes_binary*: A binary variable indicating presence of diabetes by 1 & absence by 0.
 
-*HighBP,HighChol*(Have you smoked at least 100 cigarettes in your entire life? 0 = no 1 = yes), **Stroke, HeartDisease PhysActiv, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk** (Any difficulty on walking, 1 indicate presence of difficulty) - all are binary variables where 1 indicate presence of the factor and 0 indicates absence. Cholcheck is also a binary variable where 0 = no cholesterol check in 5 years 1 = yes cholesterol check in 5 years
+**HighBP, HighChol, Smoker**(Have you smoked at least 100 cigarettes in your entire life? 0 = no 1 = yes), **Stroke, HeartDisease PhysActiv, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk** (Any difficulty on walking, 1 indicate presence of difficulty) - all are binary variables where 1 indicate presence of the factor and 0 indicates absence. Cholcheck is also a binary variable where 0 = no cholesterol check in 5 years 1 = yes cholesterol check in 5 years
 
 *BMI:* Body Mass index is a measure of body fat based on height and weight that applies to adult men and women. Here, BMI had a minimum value of 12 & maximum value of 98. BMI more than 25 is considered obese.
 
